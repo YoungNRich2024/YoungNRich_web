@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+:root {
+  --darkblue: #01121a;
+  --gold1: #fefff4;
+  --gold2: #e8b88b;
+  --gold3: #af6a42;
+  --gold4: #8f563a;
+}
