@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import bg_bedroom from "../../assets/bedroom/bg_bedroom.png";
 import pad from "../../assets/bedroom/pad.png";
-// import tv_on from "../../assets/bedroom/tv_on.png";
-import tv_off from "../../assets/bedroom/tv_off.png";
+import remocon from "../../assets/bedroom/remocon.png";
+import tv_on from "../../assets/bedroom/tv_on.png";
+// import tv_off from "../../assets/bedroom/tv_off.png";
 import Dialog from "../common/Dialog";
 import { bedroomData, bedroomKeys } from "../../data/bedroomData";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { inventoryState } from "../../recoil/atom";
 
 // 침실 - 퍼즐 1
@@ -15,8 +16,9 @@ const Bedroom = () => {
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
   const [showIpad, setShowIpad] = useState(true); // 아이패드 활성화 여부
+  const [showPillow, setShowPillow] = useState(true); // 베개 클릭 활성화 여부
 
-  const setInventory = useSetRecoilState(inventoryState); // 인벤토리 설정 함수
+  const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
 
   // 대화창 띄우기
   const turnOnDialog = (item: bedroomKeys) => {
@@ -34,12 +36,22 @@ const Bedroom = () => {
     turnOnDialog("pad"); // 아이패드 관련 대화창 활성화
   };
 
+  // 베개 클릭 시
+  const clickPillow = () => {
+    setShowPillow(false); // 베개 클릭 사라짐
+    setInventory((prev) => [
+      ...prev,
+      { id: prev.length, name: "remocon", image: remocon, checked: false },
+    ]); // 인벤토리에 아이패드 추가
+    turnOnDialog("pillow"); // 리모콘 관련 대화창 활성화
+  };
+
   return (
     <Wrapper>
       <Photo onClick={() => turnOnDialog("photo")} />
-      <Pillow onClick={() => turnOnDialog("pillow")} />
+      {showPillow && <Pillow onClick={clickPillow} />}
       {showIpad && <Pad src={pad} alt="pad" onClick={clickIpad} />}
-      <TV src={tv_off} alt="tv" onClick={() => turnOnDialog("tv")} />
+      <TV src={tv_on} alt="tv" onClick={() => turnOnDialog("tv")} />
       {activeDialog && (
         <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
       )}
