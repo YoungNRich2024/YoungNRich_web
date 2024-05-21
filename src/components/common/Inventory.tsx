@@ -18,11 +18,12 @@ const Inventory = () => {
   const toggleChecked = (id: number) => {
     // 해당하는 아이템을 찾으면 checked value를 반전
     // 해당하는 아이템이 아니면 checked를 false로 지정 (하나만 선택되도록)
-    setInventory(
-      (prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : { ...item, checked: false }
-        ) 
+    setInventory((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, checked: !item.checked }
+          : { ...item, checked: false }
+      )
     );
   };
 
@@ -103,7 +104,10 @@ const Item = styled.div<{ checked: boolean }>`
 
   @media screen and (max-width: 500px), (max-height: 500px) {
     // 모바일
-    border: 1.5px solid var(--black); // 테두리 굵기 줄이기
+    border: ${(props) =>
+      props.checked
+        ? "2px groove var(--gold2)"
+        : "1.5px solid var(--black)"}; // 테두리 굵기 줄이기
     width: 40%;
   }
 
