@@ -7,8 +7,8 @@ import tv_on from "../../assets/bedroom/tv_on.png";
 // import tv_off from "../../assets/bedroom/tv_off.png";
 import Dialog from "../common/Dialog";
 import { bedroomData, bedroomKeys } from "../../data/bedroomData";
-import { useRecoilState } from "recoil";
-import { inventoryState } from "../../recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { inventoryState, modalState } from "../../recoil/atom";
 
 // 침실 - 퍼즐 1
 const Bedroom = () => {
@@ -19,6 +19,7 @@ const Bedroom = () => {
   const [showPillow, setShowPillow] = useState(true); // 베개 클릭 활성화 여부
 
   const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
+  const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
 
   // 대화창 띄우기
   const turnOnDialog = (item: bedroomKeys) => {
@@ -46,12 +47,23 @@ const Bedroom = () => {
     turnOnDialog("pillow"); // 리모콘 관련 대화창 활성화
   };
 
+  // TV 클릭 시
+  const clickTv = () => {
+    const remoconItem = inventory.find((item) => item.name === "remocon"); // 인벤토리에서 리모컨 찾기
+    if (remoconItem?.checked) {
+      // 리모컨이 켜져있으면
+      setModal({ isOpen: true, content: "tv" });
+    } else {
+      turnOnDialog("tv");
+    }
+  };
+
   return (
     <Wrapper>
       <Photo onClick={() => turnOnDialog("photo")} />
       {showPillow && <Pillow onClick={clickPillow} />}
       {showIpad && <Pad src={pad} alt="pad" onClick={clickIpad} />}
-      <TV src={tv_on} alt="tv" onClick={() => turnOnDialog("tv")} />
+      <TV src={tv_on} alt="tv" onClick={clickTv} />
       {activeDialog && (
         <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
       )}
