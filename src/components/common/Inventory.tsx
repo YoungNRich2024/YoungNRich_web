@@ -95,18 +95,19 @@ const ItemList = styled.div`
 `;
 
 const Item = styled.div<{ checked: boolean }>`
-  background-color: var(--white);
+  background-color: ${(props) =>
+    props.checked ? "var(--gold2)" : "var(--white)"};
   width: 30%;
   aspect-ratio: 1;
   border: ${(props) =>
-    props.checked ? "3px groove var(--gold2)" : "3px solid var(--black)"};
+    props.checked ? "3px solid var(--gold4)" : "3px solid var(--black)"};
   border-radius: 5px;
 
   @media screen and (max-width: 500px), (max-height: 500px) {
     // 모바일
     border: ${(props) =>
       props.checked
-        ? "2px groove var(--gold2)"
+        ? "2px solid var(--gold4)"
         : "1.5px solid var(--black)"}; // 테두리 굵기 줄이기
     width: 40%;
   }
