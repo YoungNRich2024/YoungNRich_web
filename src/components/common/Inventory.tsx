@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import bg_inventory from "../../assets/common/bg_inventory.png";
 import magnifier from "../../assets/common/ic_magnifier.png";
-import { useRecoilState } from "recoil";
-import { inventoryState } from "../../recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { inventoryState, modalState } from "../../recoil/atom";
 
 // 인벤토리
 const Inventory = () => {
-  const [inventory, setInventory] = useRecoilState(inventoryState);
+  const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 상태 및 설정 함수
+  const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
+
   // 인벤토리 항목과 빈 칸을 포함한 총 6개의 아이템 칸을 렌더링
   const inventoryItems = [
     ...inventory,
@@ -27,6 +29,15 @@ const Inventory = () => {
     );
   };
 
+  // 돋보기 클릭 시 실행되는 함수
+  const clickMagnifier = () => {
+    // 아이패드가 켜져 있으면
+    const padItem = inventory.find((item) => item.name === "pad");
+    if (padItem?.checked) {
+      setModal({ isOpen: true, content: "pad" });
+    }
+  };
+
   return (
     <Wrapper>
       <Background>
@@ -41,7 +52,7 @@ const Inventory = () => {
             </Item>
           ))}
         </ItemList>
-        <Magnifier checked={false}>
+        <Magnifier checked={false} onClick={clickMagnifier}>
           <img src={magnifier} alt="돋보기" />
         </Magnifier>
       </Background>

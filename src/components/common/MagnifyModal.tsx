@@ -5,6 +5,7 @@ import { modalState } from "../../recoil/atom";
 import bg_modal from "../../assets/common/bg_modal.png";
 import ic_down from "../../assets/common/ic_down.png";
 import TvLarge from "../game/TvLarge";
+import IpadLarge from "../game/IpadLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
@@ -20,6 +21,7 @@ const MagnifyModal = () => {
   return (
     <Wrapper>
       {modal.content === "tv" && <TvLarge />}
+      {modal.content === "pad" && <IpadLarge />}
       {/* <div className="modal-content">{modal.content}</div> */}
       <CloseArrow
         src={ic_down}
@@ -57,7 +59,9 @@ const CloseArrow = styled.img`
 
   animation-name: down-animation;
   animation-duration: 1s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 2;
+
+  cursor: pointer;
 
   @keyframes down-animation {
     0% {
