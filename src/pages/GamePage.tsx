@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Bedroom from "../components/game/Bedroom";
+import Bedroom from "../components/game/bedroom/Bedroom";
 import Inventory from "../components/common/Inventory";
 import MagnifyModal from "../components/common/MagnifyModal";
 

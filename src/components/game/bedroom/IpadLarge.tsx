@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import pad_large from "../../assets/bedroom/pad_large.png";
+import pad_large from "../../../assets/bedroom/pad_large.png";
 import IpadQuiz1 from "./IpadQuiz1";
 import IpadQuiz2 from "./IpadQuiz2";
 import IpadQuizSuccess from "./IpadQuizSuccess";
@@ -32,7 +32,7 @@ const IpadLarge = () => {
           <IpadQuiz2 setQuizStep={setQuizStep} quiz={quiz} setQuiz={setQuiz} />
         )}
         {quizStep === 3 && <IpadQuizSuccess />}
-        {quizStep === 4 && <IpadQuizFail setQuizStep={setQuizStep}/>}
+        {quizStep === 4 && <IpadQuizFail setQuizStep={setQuizStep} />}
       </Screen>
     </Wrapper>
   );

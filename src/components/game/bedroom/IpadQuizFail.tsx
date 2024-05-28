@@ -1,24 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import ic_success from "../../assets/bedroom/ic_success.png";
+import ic_fail from "../../../assets/bedroom/ic_fail.png";
+
+interface IpadQuizFailProps {
+  setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
+}
 
 // 침실 아이패드 퀴즈 실패 페이지
-const IpadQuizSuccess = () => {
+const IpadQuizFail: React.FC<IpadQuizFailProps> = ({ setQuizStep }) => {
+  // 퀴즈 처음으로 돌아감
+  const clickMoveBtn = () => {
+    setQuizStep(1);
+  };
   return (
     <Wrapper>
-      <Icon src={ic_success} alt="성공" />
+      <Icon src={ic_fail} alt="성공" />
 
-      <MainText>정답입니다!</MainText>
-      <SubText>
-        침실 탈출에 성공하셨습니다! {"\n"} 아래 버튼을 클릭하면 다음 방으로
-        이동합니다.
-      </SubText>
-      <MoveBtn>next ▶</MoveBtn>
+      <MainText>정답이 아닙니다!</MainText>
+      <SubText>퀴즈를 푸는데 실패하셨군요. {"\n"} 다시 도전해보세요!</SubText>
+      <MoveBtn onClick={clickMoveBtn}>quiz ▶</MoveBtn>
     </Wrapper>
   );
 };
 
-export default IpadQuizSuccess;
+export default IpadQuizFail;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -40,7 +45,6 @@ const MainText = styled.div`
   font-family: GowunBatang-Regular;
   font-weight: bold;
   font-size: 28px;
-  color: var(--gold4);
 
   margin: 24px 0;
 
@@ -54,7 +58,6 @@ const MainText = styled.div`
 const SubText = styled.div`
   font-family: GowunBatang-Regular;
   font-weight: bold;
-  color: var(--gold4);
   white-space: pre-wrap;
   text-align: center;
 
@@ -82,8 +85,8 @@ const MoveBtn = styled.div`
 
   letter-spacing: 1px;
 
-  color: var(--gold4);
-  text-shadow: 0px 0px 10px var(--gold4);
+  color: var(--black);
+  text-shadow: 0px 0px 10px var(--black);
   cursor: pointer;
 
   animation-name: move-animation;

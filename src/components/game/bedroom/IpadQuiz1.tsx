@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import ic_upgraph from "../../assets/bedroom/ic_upgraph.png";
-import ic_downgraph from "../../assets/bedroom/ic_downgraph.png";
+import ic_upgraph from "../../../assets/bedroom/ic_upgraph.png";
+import ic_downgraph from "../../../assets/bedroom/ic_downgraph.png";
 import { QuizItem } from "./IpadLarge";
 
 interface IpadQuiz1Props {

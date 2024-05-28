@@ -4,8 +4,8 @@ import { useRecoilState } from "recoil";
 import { modalState } from "../../recoil/atom";
 import bg_modal from "../../assets/common/bg_modal.png";
 import ic_down from "../../assets/common/ic_down.png";
-import TvLarge from "../game/TvLarge";
-import IpadLarge from "../game/IpadLarge";
+import TvLarge from "../game/bedroom/TvLarge";
+import IpadLarge from "../game/bedroom/IpadLarge";
 
 // 확대 모달
 const MagnifyModal = () => {

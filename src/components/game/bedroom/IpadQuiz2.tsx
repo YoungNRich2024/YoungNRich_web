@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Toggle from "./Toggle";
 import { QuizItem } from "./IpadLarge";
-import { bedroomEscapeData } from "../../data/bedroomData";
+import { bedroomEscapeData } from "../../../data/bedroomData";
 
 interface IpadQuiz2Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수

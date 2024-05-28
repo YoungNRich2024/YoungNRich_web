@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import bg_bedroom from "../../assets/bedroom/bg_bedroom.png";
-import pad from "../../assets/bedroom/pad.png";
-import remocon from "../../assets/bedroom/remocon.png";
-import tv_on from "../../assets/bedroom/tv_on.png";
+import bg_bedroom from "../../../assets/bedroom/bg_bedroom.png";
+import pad from "../../../assets/bedroom/pad.png";
+import remocon from "../../../assets/bedroom/remocon.png";
+import tv_on from "../../../assets/bedroom/tv_on.png";
 // import tv_off from "../../assets/bedroom/tv_off.png";
-import Dialog from "../common/Dialog";
-import { bedroomData, bedroomKeys } from "../../data/bedroomData";
+import Dialog from "../../common/Dialog";
+import { bedroomData, bedroomKeys } from "../../../data/bedroomData";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { inventoryState, modalState } from "../../recoil/atom";
+import { inventoryState, modalState } from "../../../recoil/atom";
 
 // 침실 - 퍼즐 1
 const Bedroom = () => {

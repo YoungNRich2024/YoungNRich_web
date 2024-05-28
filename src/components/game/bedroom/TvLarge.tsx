@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import tv_large from "../../assets/bedroom/tv_large.png";
+import tv_large from "../../../assets/bedroom/tv_large.png";
 import YouTube from "react-youtube";
 
 // TV 확대
