@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import ic_success from "../../../assets/bedroom/ic_success.png";
+import { useSetRecoilState } from "recoil";
+import { modalState, gameStepState } from "../../../recoil/atom";
 
 // 침실 아이패드 퀴즈 실패 페이지
 const IpadQuizSuccess = () => {
+  const setModal = useSetRecoilState(modalState); // 모달 열려있는지 여부 설정 함수
+  const setGameStep = useSetRecoilState(gameStepState); // 게임 단계 설정 함수
+  const clickNextBtn = () => {
+    setModal({ isOpen: false, content: null }); // 모달 지우기
+    setGameStep(2); // 침실 -> 서재 이동 페이지로 연결
+  };
   return (
     <Wrapper>
       <Icon src={ic_success} alt="성공" />
@@ -13,7 +21,7 @@ const IpadQuizSuccess = () => {
         침실 탈출에 성공하셨습니다! {"\n"} 아래 버튼을 클릭하면 다음 방으로
         이동합니다.
       </SubText>
-      <MoveBtn>next ▶</MoveBtn>
+      <MoveBtn onClick={clickNextBtn}>next ▶</MoveBtn>
     </Wrapper>
   );
 };

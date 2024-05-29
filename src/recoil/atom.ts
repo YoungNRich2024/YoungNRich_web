@@ -1,7 +1,8 @@
 import { atom } from "recoil";
 
 // 게임 진행상황
-export const stepState = atom({ key: "stepState", default: 1 });
+// 1은 침실, 2는 침실 -> 서재 이동, 3은 서재, 4는 서재 -> 금고 이동, 5는 금고, 6은 마무리
+export const gameStepState = atom<number>({ key: "gameStepState", default: 1 });
 
 // 확대 모달
 // 모달 항목의 타입 정의
