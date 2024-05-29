@@ -16,7 +16,7 @@ export const bedroomData: bedroomTypes = {
 
 export const bedroomEscapeData = [
   { id: 0, checked: true },
-  { id: 1, checked: true },
+  { id: 1, checked: false },
   { id: 2, checked: false },
   { id: 3, checked: false },
 ];
