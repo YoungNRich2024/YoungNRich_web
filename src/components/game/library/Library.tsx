@@ -13,6 +13,9 @@ import ic_right from "../../../assets/library/ic_right.png";
 const Library = () => {
   const [wallIndex, setWallIndex] = useState(0);
 
+  const [showFinancial, setShowFinancial] = useState(true); // 책장벽 재무제표 활성화 여부
+  const [showKey, setShowKey] = useState(true); // 열쇠 획득 여부
+
   const clickPrev = () => {
     if (wallIndex <= 0) {
       setWallIndex(3);
@@ -31,14 +34,21 @@ const Library = () => {
 
   return (
     <Wrapper>
-      {wallIndex === 0 && <BookShelfWall />}
+      {wallIndex === 0 && (
+        <BookShelfWall
+          showFinancial={showFinancial}
+          setShowFinancial={setShowFinancial}
+        />
+      )}
       {wallIndex === 1 && <VaultWall />}
-      {wallIndex === 2 && <DoorWall />}
+      {wallIndex === 2 && (
+        <DoorWall showKey={showKey} setShowKey={setShowKey} />
+      )}
       {wallIndex === 3 && <WindowWall />}
 
       <Buttons>
-        <img src={ic_left} onClick={clickPrev} className="prev" />
-        <img src={ic_right} onClick={clickNext} className="next" />
+        <img src={ic_left} onClick={clickPrev} className="prev" alt="prev" />
+        <img src={ic_right} onClick={clickNext} className="next" alt="next" />
       </Buttons>
     </Wrapper>
   );
