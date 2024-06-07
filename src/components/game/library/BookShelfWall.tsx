@@ -17,6 +17,7 @@ import {
 } from "../../../data/libraryData";
 
 import Dialog from "../../common/Dialog";
+import BookShelfLarge from "./BookShelfLarge";
 
 interface BookShelfWallProps {
   showFinancial: boolean; // 재무제표 활성화 여부
@@ -38,6 +39,8 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
   const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
+
+  const [bookshelfModal, setBookshelfModal] = useState(false); // 책장 확대 모달 활성화 여부
 
   // 대화창 띄우기
   const turnOnDialog = (item: bookshelfWallKeys) => {
@@ -70,6 +73,11 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   // 열려 있는 수납장 클릭 시 실행되는 함수
   // 토글 있는 수납장 공간 모달
 
+  // 책장 클릭 시 실행되는 함수
+  const clickBookShelf = () => {
+    setBookshelfModal(true); // 책장 확대 모달 활성화
+  };
+
   return (
     <Wrapper>
       {isCabinetOpen ? (
@@ -82,12 +90,19 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
         />
       )}
 
-      <BookShelf src={bookshelf} alt="bookshelf" />
+      <BookShelf src={bookshelf} alt="bookshelf" onClick={clickBookShelf} />
       {showFinancial && <Financial src={financial} onClick={clickFinancial} />}
       <RadioTable src={radiotable} alt="radio" />
       {/* 대화창 */}
       {activeDialog && (
         <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
+      )}
+      {/* 책장 확대 모달 */}
+      {bookshelfModal && (
+        <BookShelfLarge
+          bookshelfModal={bookshelfModal}
+          setBookshelfModal={setBookshelfModal}
+        />
       )}
     </Wrapper>
   );
