@@ -13,8 +13,11 @@ import ic_right from "../../../assets/library/ic_right.png";
 const Library = () => {
   const [wallIndex, setWallIndex] = useState(0);
 
+  /* 벽 이동 시 상태가 유지되어야 하므로 부모 컴포넌트에서 관리 */
   const [showFinancial, setShowFinancial] = useState(true); // 책장벽 재무제표 활성화 여부
-  const [showKey, setShowKey] = useState(true); // 열쇠 획득 여부
+  const [isCabinetOpen, setIsCabinetOpen] = useState(false); // 책장벽 수납장 open 여부
+  const [showKey, setShowKey] = useState(true); // 문벽 열쇠 획득 여부
+  
 
   const clickPrev = () => {
     if (wallIndex <= 0) {
@@ -38,6 +41,8 @@ const Library = () => {
         <BookShelfWall
           showFinancial={showFinancial}
           setShowFinancial={setShowFinancial}
+          isCabinetOpen={isCabinetOpen}
+          setIsCabinetOpen={setIsCabinetOpen}
         />
       )}
       {wallIndex === 1 && <VaultWall />}
