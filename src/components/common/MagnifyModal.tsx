@@ -6,6 +6,7 @@ import bg_modal from "../../assets/common/bg_modal.png";
 import ic_down from "../../assets/common/ic_down.png";
 import TvLarge from "../game/bedroom/TvLarge";
 import IpadLarge from "../game/bedroom/IpadLarge";
+import FinancialStatementLarge from "../game/library/FinancialStatementLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
@@ -22,6 +23,7 @@ const MagnifyModal = () => {
     <Wrapper>
       {modal.content === "tv" && <TvLarge />}
       {modal.content === "pad" && <IpadLarge />}
+      {modal.content === "financial" && <FinancialStatementLarge />}
       {/* <div className="modal-content">{modal.content}</div> */}
       <CloseArrow
         src={ic_down}

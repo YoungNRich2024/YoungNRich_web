@@ -36,6 +36,12 @@ const Inventory = () => {
     if (padItem?.checked) {
       setModal({ isOpen: true, content: "pad" });
     }
+
+    // 재무제표가 켜져 있으면
+    const financialItem = inventory.find((item) => item.name === "financial");
+    if (financialItem?.checked) {
+      setModal({ isOpen: true, content: "financial" });
+    }
   };
 
   return (
