@@ -22,8 +22,6 @@ interface BookProps {
 const Book: React.FC<BookProps> = ({ bookModal, setBookModal }) => {
   const [isBookOpen, setIsBookOpen] = useState(false); // 책이 펼쳐져 있는지 여부
 
-  if (!bookModal.isOpen) return null; // modal의 isOpen이 false일 경우 null 리턴
-
   // 책 모달 닫는 함수
   const closeModal = () => {
     setBookModal({ isOpen: false, content: null });
@@ -40,26 +38,28 @@ const Book: React.FC<BookProps> = ({ bookModal, setBookModal }) => {
     green: { cover: green_book_cover, content: green_book_content },
     yellow: { cover: yellow_book_cover, content: yellow_book_content },
   };
-
   const currentBook = bookImages[bookModal.content || ""];
-
   if (!currentBook) return null;
 
-  return (
-    <Wrapper>
-      <BookImage
-        src={isBookOpen ? currentBook.content : currentBook.cover}
-        alt={`${bookModal.content}_book`}
-        onClick={clickBook}
-      />
-      <CloseArrow
-        src={ic_down}
-        className="down"
-        alt="close"
-        onClick={closeModal}
-      />
-    </Wrapper>
-  );
+  if (!bookModal.isOpen) {
+    return null; // modal의 isOpen이 false일 경우 null 리턴
+  } else { // modal의 isOpen이 true일 경우 책 모달 리턴
+    return (
+      <Wrapper>
+        <BookImage
+          src={isBookOpen ? currentBook.content : currentBook.cover}
+          alt={`${bookModal.content}_book`}
+          onClick={clickBook}
+        />
+        <CloseArrow
+          src={ic_down}
+          className="down"
+          alt="close"
+          onClick={closeModal}
+        />
+      </Wrapper>
+    );
+  }
 };
 
 export default Book;

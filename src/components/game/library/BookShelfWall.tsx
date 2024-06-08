@@ -7,6 +7,7 @@ import financial from "../../../assets/library/bookshelfwall/financial.png";
 import cabinet_close from "../../../assets/library/bookshelfwall/cabinet_close.png";
 import cabinet_open from "../../../assets/library/bookshelfwall/cabinet_open.png";
 import radiotable from "../../../assets/library/bookshelfwall/radiotable.png";
+import bookshelf_number from "../../../assets/library/bookshelfwall/bookshelf_number.png";
 
 import { useRecoilState } from "recoil";
 import { inventoryState } from "../../../recoil/atom";
@@ -81,32 +82,44 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   };
 
   return (
-    <Wrapper isDarkMode={isDarkMode}>
-      {isCabinetOpen ? (
-        <Cabinet src={cabinet_open} alt="cabinet_open" />
-      ) : (
-        <Cabinet
-          src={cabinet_close}
-          alt="cabinet_closed"
-          onClick={clickCabinetClosed}
-        />
-      )}
+    <>
+      <Wrapper isDarkMode={isDarkMode}>
+        {isCabinetOpen ? (
+          <Cabinet src={cabinet_open} alt="cabinet_open" />
+        ) : (
+          <Cabinet
+            src={cabinet_close}
+            alt="cabinet_closed"
+            onClick={clickCabinetClosed}
+          />
+        )}
 
-      <BookShelf src={bookshelf} alt="bookshelf" onClick={clickBookShelf} />
-      {showFinancial && <Financial src={financial} onClick={clickFinancial} />}
-      <RadioTable src={radiotable} alt="radio" />
-      {/* 대화창 */}
-      {activeDialog && (
-        <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
-      )}
+        <BookShelf src={bookshelf} alt="bookshelf" onClick={clickBookShelf} />
+        {showFinancial && (
+          <Financial src={financial} onClick={clickFinancial} />
+        )}
+        <RadioTable src={radiotable} alt="radio" />
+        {/* 대화창 */}
+        {activeDialog && (
+          <Dialog
+            setActiveDialog={setActiveDialog}
+            dialogScript={dialogScript}
+          />
+        )}
+      </Wrapper>
+      {/* 책장 책 번호 */}
+      <BookShelfNumber>
+        <img src={bookshelf_number} alt="bookshelf_number" />
+      </BookShelfNumber>
       {/* 책장 확대 모달 */}
       {bookshelfModal && (
         <BookShelfLarge
           bookshelfModal={bookshelfModal}
           setBookshelfModal={setBookshelfModal}
+          isDarkMode={isDarkMode}
         />
       )}
-    </Wrapper>
+    </>
   );
 };
 
@@ -122,7 +135,8 @@ const Wrapper = styled.div<{ isDarkMode: boolean }>`
   overflow-y: hidden;
   position: relative;
 
-  filter: ${(props) => (props.isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
+  filter: ${(props) =>
+    props.isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
 // 책장
@@ -160,4 +174,22 @@ const RadioTable = styled.img`
   bottom: 0;
   margin-bottom: 3%;
   margin-left: 62.5%;
+`;
+
+const BookShelfNumber = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; // 보여주기용으로, 하위 요소의 event가 가능해야 함
+
+  img {
+    position: absolute;
+    width: 26%;
+    height: 88%;
+    /* margin-top: 3.3%; */
+    bottom: 0;
+    margin-bottom: 3%;
+
+    margin-left: 36.5%;
+  }
 `;

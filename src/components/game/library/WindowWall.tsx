@@ -3,6 +3,7 @@ import styled from "styled-components";
 import bg_windowwall from "../../../assets/library/windowwall/bg_windowwall.png";
 import window_open from "../../../assets/library/windowwall/window_open.png";
 import window_close from "../../../assets/library/windowwall/window_close.png";
+import window_number from "../../../assets/library/windowwall/window_number.png";
 import bag from "../../../assets/library/windowwall/bag.png";
 
 interface WindowWallProps {
@@ -38,6 +39,10 @@ const WindowWall: React.FC<WindowWallProps> = ({
         />
         <Bag src={bag} />
       </Wrapper>
+
+      <WindowNumber isDarkMode={isDarkMode} isWindowClose={isWindowClose}>
+        <img src={window_number} alt="window_number" />
+      </WindowNumber>
     </>
   );
 };
@@ -74,6 +79,25 @@ const Window = styled.img`
   width: 30%;
   margin-left: 35%;
   margin-top: 4%;
+`;
+
+const WindowNumber = styled.div<{
+  isDarkMode: boolean;
+  isWindowClose: boolean;
+}>`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; // 보여주기용으로, 하위 요소의 event가 가능해야 함
+  // 창문이 닫혀 있고, 불을 껐을 때 (다크모드)일 때만 가능
+  display: ${(props) =>
+    props.isDarkMode && props.isWindowClose ? "block" : "none"};
+
+  img {
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 4%;
+  }
 `;
 
 const Bag = styled.img`

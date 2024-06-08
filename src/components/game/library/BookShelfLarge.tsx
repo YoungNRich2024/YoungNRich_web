@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import bg_modal from "../../../assets/common/bg_modal.png";
 import bookshelf_large from "../../../assets/library/bookshelfwall/bookshelf_large.png";
+import bookshelf_large_dark from "../../../assets/library/bookshelfwall/bookshelf_large_dark.png";
 import ic_down_black from "../../../assets/common/ic_down_black.png";
 import Book from "./Book";
 
 interface BookShelfLargeProps {
   bookshelfModal: boolean; // 책장 확대 모달 활성화 여부
   setBookshelfModal: React.Dispatch<React.SetStateAction<boolean>>; // 책장 확대 모달 활성화 여부 설정 함수
+  isDarkMode: boolean;
 }
 
 // 책 모달 관련 타입 정의
 export type BookItem = {
-  isOpen: boolean;
-  content: string | null;
+  isOpen: boolean; // 책 모달을 열었는지 여부
+  content: string | null; // 어떤 책 모달인지
 };
 
 // 책장 확대 모달
 const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
   bookshelfModal,
   setBookshelfModal,
+  isDarkMode,
 }) => {
   // 책장 모달 닫는 함수
   const closeModal = () => {
@@ -37,27 +40,30 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
     setBookModal({ isOpen: true, content: item });
   };
 
-  if (!bookshelfModal) return null; // 책장 modal 상태가 false일 경우 null 리턴
-
-  return (
-    <Wrapper>
-      <BookShelf>
-        <Blue onClick={() => clickBook("blue")} />
-        <Green onClick={() => clickBook("green")} />
-        <Red onClick={() => clickBook("red")} />
-        <Yellow onClick={() => clickBook("yellow")}/>
-      </BookShelf>
-      <CloseArrow
-        src={ic_down_black}
-        className="down"
-        alt="close"
-        onClick={closeModal}
-      />
-      {bookModal.isOpen && (
-        <Book bookModal={bookModal} setBookModal={setBookModal} />
-      )}
-    </Wrapper>
-  );
+  if (!bookshelfModal) {
+    return null; // 책장 확대 modal 상태가 false일 경우 null 리턴
+  } else {
+    // 책장 확대 modal 상태가 true일 경우 모달 보여주기
+    return (
+      <Wrapper>
+        <BookShelf isDarkMode={isDarkMode}>
+          <Blue onClick={() => clickBook("blue")} />
+          <Green onClick={() => clickBook("green")} />
+          <Red onClick={() => clickBook("red")} />
+          <Yellow onClick={() => clickBook("yellow")} />
+        </BookShelf>
+        <CloseArrow
+          src={ic_down_black}
+          className="down"
+          alt="close"
+          onClick={closeModal}
+        />
+        {bookModal.isOpen && (
+          <Book bookModal={bookModal} setBookModal={setBookModal} />
+        )}
+      </Wrapper>
+    );
+  }
 };
 
 export default BookShelfLarge;
@@ -80,10 +86,13 @@ const Wrapper = styled.div`
   z-index: 10; // 책장벽 위에 띄우는 것이므로 z index 추가
 `;
 
-const BookShelf = styled.div`
+const BookShelf = styled.div<{ isDarkMode: boolean }>`
   width: 80%;
   height: 100%;
-  background: url(${bookshelf_large}) center no-repeat;
+  background: ${(props) =>
+    `url(${
+      props.isDarkMode ? bookshelf_large_dark : bookshelf_large
+    }) center no-repeat`};
   background-size: contain;
 
   position: relative;
