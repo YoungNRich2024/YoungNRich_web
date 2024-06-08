@@ -24,6 +24,7 @@ interface BookShelfWallProps {
   setShowFinancial: React.Dispatch<React.SetStateAction<boolean>>; // 재무제표 활성화 여부 설정 함수
   isCabinetOpen: boolean; // 수납장 open 여부
   setIsCabinetOpen: React.Dispatch<React.SetStateAction<boolean>>; // 수납장 open 여부 설정 함수
+  isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
 }
 
 // 책장벽
@@ -32,6 +33,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   setShowFinancial,
   isCabinetOpen,
   setIsCabinetOpen,
+  isDarkMode,
 }) => {
   // 책장, 재무제표, 라디오 테이블, 수납장,
 
@@ -79,7 +81,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   };
 
   return (
-    <Wrapper>
+    <Wrapper isDarkMode={isDarkMode}>
       {isCabinetOpen ? (
         <Cabinet src={cabinet_open} alt="cabinet_open" />
       ) : (
@@ -110,7 +112,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
 
 export default BookShelfWall;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -119,6 +121,8 @@ const Wrapper = styled.div`
   background-size: contain;
   overflow-y: hidden;
   position: relative;
+
+  filter: ${(props) => (props.isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
 `;
 
 // 책장

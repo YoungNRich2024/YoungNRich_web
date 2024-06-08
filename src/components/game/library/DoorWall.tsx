@@ -12,10 +12,11 @@ import Dialog from "../../common/Dialog";
 interface DoorWallProps {
   showKey: boolean; // 열쇠 획득 여부
   setShowKey: React.Dispatch<React.SetStateAction<boolean>>; // 열쇠 획득 여부 설정 함수
+  isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
 }
 
 // 문벽
-const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey }) => {
+const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey, isDarkMode }) => {
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
@@ -38,7 +39,7 @@ const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper isDarkMode={isDarkMode}>
       <Portrait onClick={() => turnOnDialog("portrait")} />
       <Door onClick={() => turnOnDialog("door")} />
       {showKey && <Jacket onClick={clickJacket} />}
@@ -51,7 +52,7 @@ const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey }) => {
 
 export default DoorWall;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -60,6 +61,8 @@ const Wrapper = styled.div`
   background-size: contain;
   overflow-y: hidden;
   position: relative;
+
+  filter: ${(props) => (props.isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
 `;
 
 // 초상화
