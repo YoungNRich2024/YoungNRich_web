@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { modalState } from "../../recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { inventoryState, modalState } from "../../recoil/atom";
 import bg_modal from "../../assets/common/bg_modal.png";
 import ic_down from "../../assets/common/ic_down.png";
 import TvLarge from "../game/bedroom/TvLarge";
@@ -10,13 +10,16 @@ import FinancialStatementLarge from "../game/library/FinancialStatementLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
-  const [modal, setModal] = useRecoilState(modalState);
+  const [modal, setModal] = useRecoilState(modalState); // modal 전역 상태
+  const setInventory = useSetRecoilState(inventoryState); // 인벤토리 설정 함수
 
   if (!modal.isOpen) return null; // modal의 isOpen이 false일 경우 null 리턴
 
   // 모달 닫는 함수
   const closeModal = () => {
-    setModal({ isOpen: false, content: null });
+    setModal({ isOpen: false, content: null }); // 모달 닫기
+    // 모달 닫을 때 인벤토리 모든 아이템의 check 해제
+    setInventory((prev) => prev.map((item) => ({ ...item, checked: false }))); 
   };
 
   return (
