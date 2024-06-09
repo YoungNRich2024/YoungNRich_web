@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import bg_windowwall from "../../../assets/library/windowwall/bg_windowwall.png";
 import window_open from "../../../assets/library/windowwall/window_open.png";
@@ -7,17 +7,19 @@ import window_number from "../../../assets/library/windowwall/window_number.png"
 import bag from "../../../assets/library/windowwall/bag.png";
 
 interface WindowWallProps {
+  isWindowClose: boolean; // 창문 닫혀 있는지 여부
+  setIsWindowClose: React.Dispatch<React.SetStateAction<boolean>>; // 창문 닫혀 있는지 여부 설정 함수
   isDarkMode: boolean; // 책장 확대 모달 활성화 여부
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>; // 책장 확대 모달 활성화 여부 설정 함수
 }
 
 // 창문벽
 const WindowWall: React.FC<WindowWallProps> = ({
+  isWindowClose,
+  setIsWindowClose,
   isDarkMode,
   setIsDarkMode,
 }) => {
-  const [isWindowClose, setIsWindowClose] = useState(false); // 창문 닫혀 있는지 여부
-
   // 전등 클릭 시 실행하는 함수
   const clickLamp = () => {
     setIsDarkMode(!isDarkMode); // 불 켜고 끄기

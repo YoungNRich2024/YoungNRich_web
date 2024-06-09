@@ -17,6 +17,7 @@ const Library = () => {
   const [showFinancial, setShowFinancial] = useState(true); // 책장벽 재무제표 활성화 여부
   const [isCabinetOpen, setIsCabinetOpen] = useState(false); // 책장벽 수납장 open 여부
   const [showKey, setShowKey] = useState(true); // 문벽 열쇠 획득 여부
+  const [isWindowClose, setIsWindowClose] = useState(false); // 창문 닫혀 있는지 여부
   const [isDarkMode, setIsDarkMode] = useState(false); // 불 껐는지 여부 (다크모드)
 
   const clickPrev = () => {
@@ -48,10 +49,19 @@ const Library = () => {
       )}
       {wallIndex === 1 && <VaultWall isDarkMode={isDarkMode} />}
       {wallIndex === 2 && (
-        <DoorWall showKey={showKey} setShowKey={setShowKey} isDarkMode={isDarkMode}/>
+        <DoorWall
+          showKey={showKey}
+          setShowKey={setShowKey}
+          isDarkMode={isDarkMode}
+        />
       )}
       {wallIndex === 3 && (
-        <WindowWall isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <WindowWall
+          isWindowClose={isWindowClose}
+          setIsWindowClose={setIsWindowClose}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+        />
       )}
 
       <Buttons>
