@@ -4,7 +4,7 @@ import bg_modal from "../../../assets/common/bg_modal.png";
 import bookshelf_large from "../../../assets/library/bookshelfwall/bookshelf_large.png";
 import bookshelf_large_dark from "../../../assets/library/bookshelfwall/bookshelf_large_dark.png";
 import ic_down_black from "../../../assets/common/ic_down_black.png";
-import Book from "./Book";
+import BookModal from "./BookModal";
 
 interface BookShelfLargeProps {
   bookshelfModal: boolean; // 책장 확대 모달 활성화 여부
@@ -59,7 +59,7 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
           onClick={closeModal}
         />
         {bookModal.isOpen && (
-          <Book bookModal={bookModal} setBookModal={setBookModal} />
+          <BookModal bookModal={bookModal} setBookModal={setBookModal} />
         )}
       </Wrapper>
     );
