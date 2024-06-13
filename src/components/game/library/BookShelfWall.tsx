@@ -9,8 +9,8 @@ import cabinet_open from "../../../assets/library/bookshelfwall/cabinet_open.png
 import radiotable from "../../../assets/library/bookshelfwall/radiotable.png";
 import bookshelf_number from "../../../assets/library/bookshelfwall/bookshelf_number.png";
 
-import { useRecoilState } from "recoil";
-import { inventoryState } from "../../../recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { inventoryState, modalState } from "../../../recoil/atom";
 
 import {
   bookshelfWallData,
@@ -42,6 +42,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
   const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
+  const setModal = useSetRecoilState(modalState); // // 모달 내용 변경 함수
 
   const [bookshelfModal, setBookshelfModal] = useState(false); // 책장 확대 모달 활성화 여부
 
@@ -74,7 +75,9 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   };
 
   // 열려 있는 수납장 클릭 시 실행되는 함수
-  // 토글 있는 수납장 공간 모달
+  const clickCabinetOpened = () => {
+    setModal({ isOpen: true, content: "cabinet" });
+  };
 
   // 책장 클릭 시 실행되는 함수
   const clickBookShelf = () => {
@@ -85,7 +88,11 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
     <>
       <Wrapper isDarkMode={isDarkMode}>
         {isCabinetOpen ? (
-          <Cabinet src={cabinet_open} alt="cabinet_open" />
+          <Cabinet
+            src={cabinet_open}
+            alt="cabinet_open"
+            onClick={clickCabinetOpened}
+          />
         ) : (
           <Cabinet
             src={cabinet_close}

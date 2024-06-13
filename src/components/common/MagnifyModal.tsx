@@ -7,6 +7,7 @@ import ic_down from "../../assets/common/ic_down.png";
 import TvLarge from "../game/bedroom/TvLarge";
 import IpadLarge from "../game/bedroom/IpadLarge";
 import FinancialStatementLarge from "../game/library/FinancialStatementLarge";
+import CabinetLarge from "../game/library/CabinetLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
@@ -19,7 +20,7 @@ const MagnifyModal = () => {
   const closeModal = () => {
     setModal({ isOpen: false, content: null }); // 모달 닫기
     // 모달 닫을 때 인벤토리 모든 아이템의 check 해제
-    setInventory((prev) => prev.map((item) => ({ ...item, checked: false }))); 
+    setInventory((prev) => prev.map((item) => ({ ...item, checked: false })));
   };
 
   return (
@@ -27,6 +28,7 @@ const MagnifyModal = () => {
       {modal.content === "tv" && <TvLarge />}
       {modal.content === "pad" && <IpadLarge />}
       {modal.content === "financial" && <FinancialStatementLarge />}
+      {modal.content === "cabinet" && <CabinetLarge />}
       {/* <div className="modal-content">{modal.content}</div> */}
       <CloseArrow
         src={ic_down}

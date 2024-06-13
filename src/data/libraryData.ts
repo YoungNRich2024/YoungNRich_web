@@ -3,7 +3,6 @@
 // 책장벽에서 사용할 데이터
 export type bookshelfWallKeys =
   | "financial"
-  | "cabinet"
   | "cabinet_closed"
   | "cabinet_opened";
 
@@ -13,11 +12,18 @@ type bookshelfWallTypes = {
 
 export const bookshelfWallData: bookshelfWallTypes = {
   financial: "이게 바로 재무제표인가보다! 인벤토리에 넣자!",
-  cabinet: "닫혀있는 수납장을 열기 위해서는 열쇠가 필요하다. 열쇠는 어디에...?",
   cabinet_closed:
     "닫혀있는 수납장을 열기 위해서는 열쇠가 필요하다. 열쇠는 어디에...?",
   cabinet_opened: "수납장이 열렸다!",
 };
+
+// 책장벽 수납장 (퍼즐 2) 관련 퀴즈 정답
+export const puzzle2Data = [
+  { id: 0, checked: false },
+  { id: 1, checked: true },
+  { id: 2, checked: true },
+  { id: 3, checked: true },
+];
 
 // 문벽에서 사용할 데이터
 export type doorWallKeys = "portrait" | "door" | "jacket";
