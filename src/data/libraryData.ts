@@ -4,7 +4,9 @@
 export type bookshelfWallKeys =
   | "financial"
   | "cabinet_closed"
-  | "cabinet_opened";
+  | "cabinet_opened"
+  | "puzzle_fail"
+  | "puzzle_success";
 
 type bookshelfWallTypes = {
   [key in bookshelfWallKeys]: string;
@@ -15,6 +17,8 @@ export const bookshelfWallData: bookshelfWallTypes = {
   cabinet_closed:
     "닫혀있는 수납장을 열기 위해서는 열쇠가 필요하다. 열쇠는 어디에...?",
   cabinet_opened: "수납장이 열렸다!",
+  puzzle_fail: "아무 일도 일어나지 않았다…",
+  puzzle_success: "엇! 어딘가에서 자물쇠가 풀리는 소리가 났다…!",
 };
 
 // 책장벽 수납장 (퍼즐 2) 관련 퀴즈 정답

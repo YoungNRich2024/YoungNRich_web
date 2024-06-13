@@ -32,4 +32,18 @@ export const inventoryState = atom<InventoryItem[]>({
   default: [],
 });
 
+type LibraryPuzzleItem = {
+  puzzleId : number;
+  done: boolean;
+};
+// 서재 퍼즐 3개 완료 여부
+export const libraryPuzzleState = atom<LibraryPuzzleItem[]>({
+  key: "libraryPuzzleState",
+  default: [
+    { puzzleId: 2, done: false },
+    { puzzleId: 3, done: false },
+    { puzzleId: 4, done: false },
+  ],
+});
+
 // 시간 측정
