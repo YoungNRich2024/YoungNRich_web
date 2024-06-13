@@ -159,11 +159,6 @@ const SubmitBtn = styled.button`
   }
 
   &:active {
-    margin-bottom: -3px;
     box-shadow: 0px 0px 0px 0px var(--gold3);
-
-    @media screen and (max-width: 500px), (max-height: 500px) {
-      margin-bottom: 0;
-    }
   }
 `;
