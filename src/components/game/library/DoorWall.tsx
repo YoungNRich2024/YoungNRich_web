@@ -39,7 +39,7 @@ const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey, isDarkMode }) 
   };
 
   return (
-    <Wrapper isDarkMode={isDarkMode}>
+    <Wrapper $isDarkMode={isDarkMode}>
       <Portrait onClick={() => turnOnDialog("portrait")} />
       <Door onClick={() => turnOnDialog("door")} />
       {showKey && <Jacket onClick={clickJacket} />}
@@ -52,7 +52,7 @@ const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey, isDarkMode }) 
 
 export default DoorWall;
 
-const Wrapper = styled.div<{ isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -62,7 +62,7 @@ const Wrapper = styled.div<{ isDarkMode: boolean }>`
   overflow-y: hidden;
   position: relative;
 
-  filter: ${(props) => (props.isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
+  filter: ${(props) => (props.$isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
 `;
 
 // 초상화

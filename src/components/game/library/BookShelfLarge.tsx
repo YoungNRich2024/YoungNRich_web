@@ -46,7 +46,7 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
     // 책장 확대 modal 상태가 true일 경우 모달 보여주기
     return (
       <Wrapper>
-        <BookShelf isDarkMode={isDarkMode}>
+        <BookShelf $isDarkMode={isDarkMode}>
           <Blue onClick={() => clickBook("blue")} />
           <Green onClick={() => clickBook("green")} />
           <Red onClick={() => clickBook("red")} />
@@ -86,12 +86,12 @@ const Wrapper = styled.div`
   z-index: 10; // 책장벽 위에 띄우는 것이므로 z index 추가
 `;
 
-const BookShelf = styled.div<{ isDarkMode: boolean }>`
+const BookShelf = styled.div<{ $isDarkMode: boolean }>`
   width: 80%;
   height: 100%;
   background: ${(props) =>
     `url(${
-      props.isDarkMode ? bookshelf_large_dark : bookshelf_large
+      props.$isDarkMode ? bookshelf_large_dark : bookshelf_large
     }) center no-repeat`};
   background-size: contain;
 

@@ -86,7 +86,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
 
   return (
     <>
-      <Wrapper isDarkMode={isDarkMode}>
+      <Wrapper $isDarkMode={isDarkMode}>
         {isCabinetOpen ? (
           <Cabinet
             src={cabinet_open}
@@ -132,7 +132,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
 
 export default BookShelfWall;
 
-const Wrapper = styled.div<{ isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -143,7 +143,7 @@ const Wrapper = styled.div<{ isDarkMode: boolean }>`
   position: relative;
 
   filter: ${(props) =>
-    props.isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
 // 책장

@@ -33,7 +33,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
   }, [puzzleState]);
 
   return (
-    <Wrapper isDarkMode={isDarkMode}>
+    <Wrapper $isDarkMode={isDarkMode}>
       <Vault
         src={
           puzzleSuccess === 1
@@ -45,7 +45,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
             : vault_0sol
         }
         alt="vault"
-        isDarkMode={isDarkMode}
+        $isDarkMode={isDarkMode}
       />
       <Frames src={frames} alt="frames" />
     </Wrapper>
@@ -54,7 +54,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
 
 export default VaultWall;
 
-const Wrapper = styled.div<{ isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
@@ -65,10 +65,10 @@ const Wrapper = styled.div<{ isDarkMode: boolean }>`
   position: relative;
 
   filter: ${(props) =>
-    props.isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
-const Vault = styled.img<{ isDarkMode: boolean }>`
+const Vault = styled.img<{ $isDarkMode: boolean }>`
   position: absolute;
   width: 24.2%;
   bottom: 0;
@@ -77,7 +77,7 @@ const Vault = styled.img<{ isDarkMode: boolean }>`
 
   // 불 껐을 때 (다크모드) 밝기 올리기
   filter: ${(props) =>
-    props.isDarkMode ? "brightness(1.5)" : "brightness(1)"};
+    props.$isDarkMode ? "brightness(1.5)" : "brightness(1)"};
 `;
 
 const Frames = styled.img`
