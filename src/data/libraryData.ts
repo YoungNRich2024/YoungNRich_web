@@ -3,7 +3,6 @@
 // 책장벽에서 사용할 데이터
 export type bookshelfWallKeys =
   | "financial"
-  | "cabinet_closed"
   | "cabinet_opened"
   | "puzzle_fail"
   | "puzzle_success";
@@ -14,8 +13,6 @@ type bookshelfWallTypes = {
 
 export const bookshelfWallData: bookshelfWallTypes = {
   financial: "이게 바로 재무제표인가보다! 인벤토리에 넣자!",
-  cabinet_closed:
-    "닫혀있는 수납장을 열기 위해서는 열쇠가 필요하다. 열쇠는 어디에...?",
   cabinet_opened: "수납장이 열렸다!",
   puzzle_fail: "아무 일도 일어나지 않았다…",
   puzzle_success: "엇! 어딘가에서 자물쇠가 풀리는 소리가 났다…!",

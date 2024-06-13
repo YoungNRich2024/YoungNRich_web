@@ -68,9 +68,6 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
     if (keyItem?.checked) {
       // 키가 체크되어 있으면
       setIsCabinetOpen(true); // 수납장 open 상태 true
-    } else {
-      // 키가 체크되어 있지 않으면 열쇠 관련 대화창만 활성화
-      turnOnDialog("cabinet_closed");
     }
   };
 
@@ -91,12 +88,14 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
           <Cabinet
             src={cabinet_open}
             alt="cabinet_open"
+            $isCabinetOpen={isCabinetOpen}
             onClick={clickCabinetOpened}
           />
         ) : (
           <Cabinet
             src={cabinet_close}
             alt="cabinet_closed"
+            $isCabinetOpen={isCabinetOpen}
             onClick={clickCabinetClosed}
           />
         )}
@@ -167,12 +166,38 @@ const Financial = styled.img`
   margin-top: 16%;
 `;
 
-const Cabinet = styled.img`
+const Cabinet = styled.img<{ $isCabinetOpen: boolean }>`
   position: absolute;
   width: 11%;
   bottom: 0;
   margin-bottom: 3%;
   margin-left: 25%;
+
+  // 수납장이 열려있지 않을 때 수납장 클릭 시 진동 애니메이션 효과 적용
+  ${(props) =>
+    !props.$isCabinetOpen &&
+    `
+    &:active {
+      animation-name: vibration;
+      animation-duration: 0.2s;
+      animation-iteration-count: 4;
+    }
+  `}
+
+  @keyframes vibration {
+    0% {
+      transform: rotate(2deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(-2deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
 `;
 
 const RadioTable = styled.img`
