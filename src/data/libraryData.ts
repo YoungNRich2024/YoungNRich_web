@@ -39,3 +39,15 @@ export const doorWallData: doorWallTypes = {
   jacket:
     "코트 주머니에서 수상한 열쇠를 발견했다. 어디에 쓰이는 열쇠지? 일단 챙겨둬 보자.",
 };
+
+// 금고벽에서 사용할 데이터
+export type vaultWallKeys = "bull" | "bear";
+
+type vaultWallTypes = {
+  [key in vaultWallKeys]: string;
+};
+
+export const vaultWallData: vaultWallTypes = {
+  bull: "주가가 오르는 모습은 언제나 나를 기쁘게 하지! 좋은 실적을 내는 기업을 보면 곧 그 기업의 주가가 오를 거라는 생각에 가슴이 설레어!",
+  bear: "주식시장이 지속해서 약세를 보이면 많은 일이 일어나지… 시가총액이 줄어들고, 소비가 감소해. 이건 마치 자연의 섭리 같은 거야…",
+};
