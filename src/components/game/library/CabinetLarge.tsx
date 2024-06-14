@@ -8,8 +8,9 @@ import {
   puzzle2Data,
 } from "../../../data/libraryData";
 import Dialog from "../../common/Dialog";
-import { useSetRecoilState } from "recoil";
-import { libraryPuzzleState } from "../../../recoil/atom";
+
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { libraryPuzzleState, puzzle2State } from "../../../recoil/atom";
 
 // 퀴즈 아이템 타입 정의
 export interface CabinetQuizItem {
@@ -24,12 +25,7 @@ const CabinetLarge = () => {
   const setPuzzleState = useSetRecoilState(libraryPuzzleState); // 서재 퍼즐 상태 설정 함수
 
   // 퍼즐 2 수납장 퀴즈
-  const [cabinetQuiz, setCabinetQuiz] = useState<CabinetQuizItem[]>([
-    { id: 0, checked: true },
-    { id: 1, checked: true },
-    { id: 2, checked: true },
-    { id: 3, checked: true },
-  ]);
+  const [cabinetQuiz, setCabinetQuiz] = useRecoilState(puzzle2State);
 
   // 대화창 띄우기
   const turnOnDialog = (item: bookshelfWallKeys) => {

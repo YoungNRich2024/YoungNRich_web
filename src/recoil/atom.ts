@@ -32,17 +32,34 @@ export const inventoryState = atom<InventoryItem[]>({
   default: [],
 });
 
+
+// 서재 퍼즐 3개 완료 여부
+// 서재 퍼즐 완료 여부 타입 정의
 type LibraryPuzzleItem = {
-  puzzleId : number;
+  puzzleId: number;
   done: boolean;
 };
-// 서재 퍼즐 3개 완료 여부
 export const libraryPuzzleState = atom<LibraryPuzzleItem[]>({
   key: "libraryPuzzleState",
   default: [
     { puzzleId: 2, done: false },
     { puzzleId: 3, done: false },
     { puzzleId: 4, done: false },
+  ],
+});
+
+// 서재 퍼즐2 상태
+type Puzzle2Item = {
+  id: number;
+  checked: boolean;
+};
+export const puzzle2State = atom<Puzzle2Item[]>({
+  key: 'puzzle2State',
+  default: [
+    { id: 0, checked: true },
+    { id: 1, checked: true },
+    { id: 2, checked: true },
+    { id: 3, checked: true },
   ],
 });
 
