@@ -63,4 +63,10 @@ export const puzzle2State = atom<Puzzle2Item[]>({
   ],
 });
 
+// 서재 퍼즐3 상태
+export const puzzle3State = atom<number[]>({
+  key: 'puzzle3State',
+  default: [],
+});
+
 // 시간 측정

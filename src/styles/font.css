@@ -2,6 +2,10 @@
 /* Cinzel */
 @import url("https://fonts.cdnfonts.com/css/cinzel");
 
+/* 디지털 폰트 */
+/* DS-Digital */
+@import url('https://fonts.cdnfonts.com/css/ds-digital');
+
 /* Pretendard */
 @font-face {
   font-family: "Pretendard-Regular";

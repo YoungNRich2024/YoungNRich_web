@@ -26,6 +26,9 @@ export const puzzle2Data = [
   { id: 3, checked: true },
 ];
 
+// 창문벽 가방 (퍼즐 3) 관련 비밀번호 정답
+export const puzzle3Data = [4, 1, 4, 1];
+
 // 문벽에서 사용할 데이터
 export type doorWallKeys = "portrait" | "door" | "jacket";
 

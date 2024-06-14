@@ -26,4 +26,7 @@ button {
   --bookshelfGreen: #00600c;
   --bookshelfRed: #a50000;
   --bookshelfYellow: #e0ac00;
+  --lightgray: #2a3139;
+  --gray: #1d2229;
+  --darkgray: #02111a;
 }

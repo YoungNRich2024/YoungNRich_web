@@ -5,6 +5,8 @@ import window_open from "../../../assets/library/windowwall/window_open.png";
 import window_close from "../../../assets/library/windowwall/window_close.png";
 import window_number from "../../../assets/library/windowwall/window_number.png";
 import bag from "../../../assets/library/windowwall/bag.png";
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../../../recoil/atom";
 
 interface WindowWallProps {
   isWindowClose: boolean; // 창문 닫혀 있는지 여부
@@ -20,6 +22,8 @@ const WindowWall: React.FC<WindowWallProps> = ({
   isDarkMode,
   setIsDarkMode,
 }) => {
+  const setModal = useSetRecoilState(modalState); // // 모달 내용 변경 함수
+
   // 전등 클릭 시 실행하는 함수
   const clickLamp = () => {
     setIsDarkMode(!isDarkMode); // 불 켜고 끄기
@@ -28,6 +32,10 @@ const WindowWall: React.FC<WindowWallProps> = ({
   // 창문 클릭 시 실행하는 함수
   const clickWindow = () => {
     setIsWindowClose(!isWindowClose); // 창문 열고 닫기
+  };
+
+  const clickBag = () => {
+    setModal({ isOpen: true, content: "bag" });
   };
 
   return (
@@ -39,7 +47,7 @@ const WindowWall: React.FC<WindowWallProps> = ({
           alt="window_open"
           onClick={clickWindow}
         />
-        <Bag src={bag} />
+        <Bag src={bag} alt="bag" onClick={clickBag}/>
       </Wrapper>
 
       <WindowNumber $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
