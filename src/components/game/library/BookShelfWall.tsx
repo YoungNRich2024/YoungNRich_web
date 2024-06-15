@@ -81,6 +81,11 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
     setBookshelfModal(true); // 책장 확대 모달 활성화
   };
 
+  // 라디오 클릭 시 실행되는 함수
+  const clickRadioTable = () => {
+    setModal({ isOpen: true, content: "radio" });
+  };
+
   return (
     <>
       <Wrapper $isDarkMode={isDarkMode}>
@@ -104,7 +109,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
         {showFinancial && (
           <Financial src={financial} onClick={clickFinancial} />
         )}
-        <RadioTable src={radiotable} alt="radio" />
+        <RadioTable src={radiotable} alt="radio" onClick={clickRadioTable}/>
         {/* 대화창 */}
         {activeDialog && (
           <Dialog

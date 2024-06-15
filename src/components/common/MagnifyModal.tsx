@@ -9,6 +9,7 @@ import IpadLarge from "../game/bedroom/IpadLarge";
 import FinancialStatementLarge from "../game/library/FinancialStatementLarge";
 import CabinetLarge from "../game/library/CabinetLarge";
 import BagLarge from "../game/library/BagLarge";
+import RadioLarge from "../game/library/RadioLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
@@ -31,6 +32,7 @@ const MagnifyModal = () => {
       {modal.content === "financial" && <FinancialStatementLarge />}
       {modal.content === "cabinet" && <CabinetLarge />}
       {modal.content === "bag" && <BagLarge />}
+      {modal.content === "radio" && <RadioLarge />}
       {/* <div className="modal-content">{modal.content}</div> */}
       <CloseArrow
         src={ic_down}
