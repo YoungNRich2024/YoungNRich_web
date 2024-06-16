@@ -1,16 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import ic_success from "../../../assets/bedroom/ic_success.png";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { modalState, gameStepState } from "../../../recoil/atom";
 
 // 침실 아이패드 퀴즈 실패 페이지
 const IpadQuizSuccess = () => {
   const setModal = useSetRecoilState(modalState); // 모달 열려있는지 여부 설정 함수
-  const setGameStep = useSetRecoilState(gameStepState); // 게임 단계 설정 함수
+  const [gameStep, setGameStep] = useRecoilState(gameStepState); // 게임 단계
   const clickNextBtn = () => {
-    setModal({ isOpen: false, content: null }); // 모달 지우기
-    setGameStep(2); // 침실 -> 서재 이동 페이지로 연결
+    if (gameStep === 1) { // 침실에서만 서재 이동
+      setModal({ isOpen: false, content: null }); // 모달 지우기
+      setGameStep(2); // 침실 -> 서재 이동 페이지로 연결
+    } else {
+      alert("이미 제출된 퀴즈입니다.");
+      setModal({ isOpen: false, content: null }); // 모달 지우기
+    }
   };
   return (
     <Wrapper>
