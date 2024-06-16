@@ -9,10 +9,11 @@ import vault_3sol from "../../../assets/library/vaultwall/vault_3sol.png";
 
 import frames from "../../../assets/library/vaultwall/frames.png";
 
-import { useRecoilValue } from "recoil";
-import { libraryPuzzleState } from "../../../recoil/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { libraryPuzzleState, modalState } from "../../../recoil/atom";
 
 import { vaultWallData, vaultWallKeys } from "../../../data/libraryData";
+
 import Dialog from "../../common/Dialog";
 
 interface VaultWallProps {
@@ -29,6 +30,8 @@ const VaultWall: React.FC<VaultWallProps> = ({
 }) => {
   const puzzleState = useRecoilValue(libraryPuzzleState); // 서재 퍼즐 상태
 
+  const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
+
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
@@ -44,10 +47,15 @@ const VaultWall: React.FC<VaultWallProps> = ({
     setDialogScript(vaultWallData[item]); // 클릭한 item을 바탕으로 대사 찾기
   };
 
+  const clickTest = () => {
+    setModal({ isOpen: true, content: "investmentTest" });
+  };
+
   return (
     <Wrapper $isDarkMode={isDarkMode}>
       <Bull onClick={() => turnOnDialog("bull")} />
-      <Bear onClick={() => turnOnDialog("bear")}/>
+      <Test onClick={clickTest}/>
+      <Bear onClick={() => turnOnDialog("bear")} />
       <Vault
         src={
           puzzleSuccess === 1
@@ -95,6 +103,16 @@ const Bull = styled.div`
 
   margin-left: 20%;
   margin-top: 5.5%;
+`;
+
+const Test = styled.div`
+  /* background-color: pink;
+  opacity: 0.5; */
+  position: absolute;
+  width: 16%;
+  height: 20%;
+  margin-left: 19%;
+  margin-top: 22%;
 `;
 
 const Bear = styled.div`

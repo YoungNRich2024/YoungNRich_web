@@ -10,6 +10,7 @@ import FinancialStatementLarge from "../game/library/FinancialStatementLarge";
 import CabinetLarge from "../game/library/CabinetLarge";
 import BagLarge from "../game/library/BagLarge";
 import RadioLarge from "../game/library/RadioLarge";
+import InvestmentTestLarge from "../game/library/InvestmentTestLarge";
 
 // 확대 모달
 const MagnifyModal = () => {
@@ -33,6 +34,7 @@ const MagnifyModal = () => {
       {modal.content === "cabinet" && <CabinetLarge />}
       {modal.content === "bag" && <BagLarge />}
       {modal.content === "radio" && <RadioLarge />}
+      {modal.content === "investmentTest" && <InvestmentTestLarge />}
       {/* <div className="modal-content">{modal.content}</div> */}
       <CloseArrow
         src={ic_down}
@@ -73,6 +75,8 @@ const CloseArrow = styled.img`
   animation-iteration-count: 2;
 
   cursor: pointer;
+
+  z-index: 30;
 
   @keyframes down-animation {
     0% {
