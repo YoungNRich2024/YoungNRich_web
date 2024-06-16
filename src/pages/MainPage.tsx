@@ -1,13 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/youngnrich_logo.png";
 
 const MainPage = () => {
+  const navigate = useNavigate();
+  const clickNewGame = () => {
+    navigate("/intro"); // 인트로 페이지로 이동
+  };
   return (
     <Wrapper>
       <GameSection>
-        <div className="left">새 게임</div>
-        <div className="left">이어하기</div>
+        <div className="left" onClick={clickNewGame}>
+          새 게임
+        </div>
+        <div className="left" onClick={clickNewGame}>
+          이어하기
+        </div>
       </GameSection>
       <img src={logo} className="logo" alt="logo" />
       <UserSection>

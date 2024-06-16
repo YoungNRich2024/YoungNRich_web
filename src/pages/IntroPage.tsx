@@ -9,7 +9,7 @@ const IntroPage = () => {
   const [introStep, setIntroStep] = useState(0);
 
   const skipClick = () => {
-    navigate("/tutorial");
+    navigate("/game");
   };
 
   const prevClick = () => {
