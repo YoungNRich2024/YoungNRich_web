@@ -79,8 +79,8 @@ const BagPasswordPad = () => {
       <Wrapper>
         <Title>암호 4자리를 입력하시오.</Title>
         <PasswordSection>
-          {passwordItems.map((item) => (
-            <PasswordKey>{item}</PasswordKey>
+          {passwordItems.map((item, index) => (
+            <PasswordKey key={index}>{item}</PasswordKey>
           ))}
         </PasswordSection>
         <PasswordResult $puzzle3Result={puzzle3Result}>
