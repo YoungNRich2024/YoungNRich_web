@@ -20,7 +20,7 @@ const IntroPage = () => {
 
   const nextClick = () => {
     if (introStep === introData.length - 1) {
-      navigate("/tutorial");
+      navigate("/game");
     }
     if (introStep < introData.length - 1) {
       setIntroStep(introStep + 1);
