@@ -69,6 +69,7 @@ export const puzzle3State = atom<number[]>({
 });
 
 // 서재 퍼즐4 상태
+// 퍼즐 4에서 테스트 결과, 투자자 선택 완료 여부 2개 저장해야 함
 // 1: 안정형, 2: 안정추구형, 3: 위험중립형, 4: 적극투자형, 5: 공격투자형
 export const puzzle4State = atom<number | null>({
   key: "puzzle4State",

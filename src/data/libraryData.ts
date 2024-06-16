@@ -6,6 +6,12 @@ import sticky_note5 from "../assets/library/vaultwall/sticky_note5.png";
 import sticky_note6 from "../assets/library/vaultwall/sticky_note6.png";
 import sticky_note7 from "../assets/library/vaultwall/sticky_note7.png";
 
+import test_result_1 from "../assets/library/vaultwall/test_result_1.png";
+import test_result_2 from "../assets/library/vaultwall/test_result_2.png";
+import test_result_3 from "../assets/library/vaultwall/test_result_3.png";
+import test_result_4 from "../assets/library/vaultwall/test_result_4.png";
+import test_result_5 from "../assets/library/vaultwall/test_result_5.png";
+
 // 서재에서 사용할 데이터
 
 // 책장벽에서 사용할 데이터
@@ -147,5 +153,49 @@ export const investmentTestData = [
         score: 5,
       },
     ],
+  },
+];
+
+// 금고벽 투자 성향 테스트 결과 데이터
+export const investmentTestResultData = [
+  {
+    resultId: 1,
+    resultImage: test_result_1,
+    resultTitle: "안정형",
+    resultContent:
+      "투자 수익을 크게 기대하지 않으며, 투자 원금의 손실 발생을 원치 않는 유형!\n투자 자금 대부분을 예금 상품에 가입하려고 하는 당신, 조금은 다른 투자를 해보는 것도 좋겠네요!",
+    resultColor: "var(--bookshelfBlue)",
+  },
+  {
+    resultId: 2,
+    resultImage: test_result_2,
+    resultTitle: "안정추구형",
+    resultContent:
+      "조금의 위험성을 수용하면서 안정적인 투자 수익을 추구하는 유형.\n예금은 금리가 아쉽고 주식은 위험하다 생각하는 당신, 채권 투자에 어울리는군요!",
+    resultColor: "var(--bookshelfGreen)",
+  },
+  {
+    resultId: 3,
+    resultImage: test_result_3,
+    resultTitle: "위험중립형",
+    resultContent:
+      "투자에는 그에 상응하는 위험이 있음을 충분히 인식하고 있는 유형.\n예금과 적금보다 높은 수익을 기대할 수 있다면 일정 부분의 손실 위험은 감수할 수 있군요!",
+    resultColor: "var(--bookshelfYellow)",
+  },
+  {
+    resultId: 4,
+    resultImage: test_result_4,
+    resultTitle: "적극투자형",
+    resultContent:
+      "위험을 감내하더라도 높은 투자 수익을 추구하는 유형!\n투자에 대한 정보를 잘 살펴보고 위험을 낮출 수 있는 투자도 고려해 보세요.",
+    resultColor: "var(--bookshelfRed)",
+  },
+  {
+    resultId: 5,
+    resultImage: test_result_5,
+    resultTitle: "공격투자형",
+    resultContent:
+      "높은 수준의 투자 수익을 추구하며, 이를 위해 손실 위험도 적극 수용하는 유형!\n자금 대부분을 수익 높은 곳에 투자하려는 당신, 투자에는 위험이 따르니 신중히 생각해 보고 투자하세요!",
+    resultColor: "var(--black)",
   },
 ];

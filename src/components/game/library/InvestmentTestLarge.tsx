@@ -7,11 +7,11 @@ import InvestmentTestResult from "./InvestmentTestResult";
 
 // 게임 페이지 - 퍼즐 1 ~ 퍼즐 5
 const InvestmentTestLarge = () => {
-  const isTestComplete = useRecoilValue(puzzle4State);
+  const testResultNum = useRecoilValue(puzzle4State);
   // 투자 성향 테스트 완료했을 경우 resultpage, 안되어 있을 경우 testpage
   return (
     <BulletinBoard>
-      {isTestComplete ? <InvestmentTestResult /> : <InvestmentTest />}
+      {testResultNum ? <InvestmentTestResult testResultNum={testResultNum}/> : <InvestmentTest />}
     </BulletinBoard>
   );
 };
