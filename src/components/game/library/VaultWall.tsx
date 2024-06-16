@@ -8,9 +8,14 @@ import vault_2sol from "../../../assets/library/vaultwall/vault_2sol.png";
 import vault_3sol from "../../../assets/library/vaultwall/vault_3sol.png";
 
 import frames from "../../../assets/library/vaultwall/frames.png";
+import frames_eye from "../../../assets/library/vaultwall/frames_eye.png";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { libraryPuzzleState, modalState } from "../../../recoil/atom";
+import {
+  libraryPuzzleState,
+  modalState,
+  puzzle4State,
+} from "../../../recoil/atom";
 
 import { vaultWallData, vaultWallKeys } from "../../../data/libraryData";
 
@@ -28,7 +33,12 @@ const VaultWall: React.FC<VaultWallProps> = ({
   setPuzzleSuccess,
   isDarkMode,
 }) => {
-  const puzzleState = useRecoilValue(libraryPuzzleState); // 서재 퍼즐 상태
+  const puzzleState = useRecoilValue(libraryPuzzleState); // 서재 퍼즐 3개 완료 여부 상태
+  const testResultNum = useRecoilValue(puzzle4State); // 퍼즐 4 투자 성향 테스트 결과
+
+  const puzzle4Done = (
+    puzzleState.find((puzzle) => puzzle.puzzleId === 4) || {}
+  ).done; // 퍼즐4 완료 여부만 따로 변수에 담기
 
   const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
 
@@ -47,6 +57,13 @@ const VaultWall: React.FC<VaultWallProps> = ({
     setDialogScript(vaultWallData[item]); // 클릭한 item을 바탕으로 대사 찾기
   };
 
+  useEffect(() => {
+    // 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 frames 관련 대화창 띄우기
+    if (testResultNum && !puzzle4Done) {
+      turnOnDialog("frames");
+    }
+  }, [testResultNum, puzzle4Done]);
+
   const clickTest = () => {
     setModal({ isOpen: true, content: "investmentTest" });
   };
@@ -54,7 +71,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
   return (
     <Wrapper $isDarkMode={isDarkMode}>
       <Bull onClick={() => turnOnDialog("bull")} />
-      <Test onClick={clickTest}/>
+      <Test onClick={clickTest} />
       <Bear onClick={() => turnOnDialog("bear")} />
       <Vault
         src={
@@ -69,7 +86,13 @@ const VaultWall: React.FC<VaultWallProps> = ({
         alt="vault"
         $isDarkMode={isDarkMode}
       />
-      <Frames src={frames} alt="frames" />
+      {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
+      {testResultNum && !puzzle4Done ? (
+        <Frames src={frames_eye} alt="frames_eye" />
+      ) : (
+        <Frames src={frames} alt="frames" />
+      )}
+
       {/* 대화창 */}
       {activeDialog && (
         <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />

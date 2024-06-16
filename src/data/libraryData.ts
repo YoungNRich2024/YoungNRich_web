@@ -58,7 +58,7 @@ export const doorWallData: doorWallTypes = {
 };
 
 // 금고벽에서 사용할 데이터
-export type vaultWallKeys = "bull" | "bear";
+export type vaultWallKeys = "bull" | "bear" | "frames";
 
 type vaultWallTypes = {
   [key in vaultWallKeys]: string;
@@ -67,6 +67,7 @@ type vaultWallTypes = {
 export const vaultWallData: vaultWallTypes = {
   bull: "주가가 오르는 모습은 언제나 나를 기쁘게 하지! 좋은 실적을 내는 기업을 보면 곧 그 기업의 주가가 오를 거라는 생각에 가슴이 설레어!",
   bear: "주식시장이 지속해서 약세를 보이면 많은 일이 일어나지… 시가총액이 줄어들고, 소비가 감소해. 이건 마치 자연의 섭리 같은 거야…",
+  frames: "... 갑자기 어디선가 시선이 느껴진다.",
 };
 
 // 금고벽 투자 성향 테스트 데이터
