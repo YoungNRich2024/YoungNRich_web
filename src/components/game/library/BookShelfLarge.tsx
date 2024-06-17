@@ -49,6 +49,7 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
         <BookShelf $isDarkMode={isDarkMode}>
           <Blue onClick={() => clickBook("blue")} />
           <Green onClick={() => clickBook("green")} />
+          <Secret onClick={() => clickBook("secret")} />
           <Red onClick={() => clickBook("red")} />
           <Yellow onClick={() => clickBook("yellow")} />
         </BookShelf>
@@ -120,6 +121,15 @@ const Green = styled.div`
   margin-top: 13%;
 
   cursor: pointer;
+`;
+
+const Secret = styled.div`
+  position: absolute;
+  width: 5%;
+  height: 25%;
+  margin-left: 29%;
+  margin-top: 14%;
+  /* background-color: pink; */
 `;
 
 // 빨간 책

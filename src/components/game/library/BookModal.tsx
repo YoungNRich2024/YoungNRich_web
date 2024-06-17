@@ -5,6 +5,7 @@ import bg_bookmodal from "../../../assets/library/bookshelfwall/bg_bookmodal.png
 import ic_down from "../../../assets/common/ic_down.png";
 
 import Book from "./Book";
+import FlipBook from "./FlipBook";
 
 interface BookModalProps {
   bookModal: BookItem; // 책장 확대 모달 활성화 여부
@@ -24,7 +25,8 @@ const BookModal: React.FC<BookModalProps> = ({ bookModal, setBookModal }) => {
   } else { // modal의 isOpen이 true일 경우 책 모달 리턴
     return (
       <Wrapper>
-        <Book bookModal={bookModal}/>
+        {bookModal.content === "secret" ? <FlipBook /> : <Book bookModal={bookModal}/>}
+        
         <CloseArrow
           src={ic_down}
           className="down"
