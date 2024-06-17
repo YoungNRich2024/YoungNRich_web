@@ -33,20 +33,20 @@ const InvestmentTest = () => {
   const clickOption = (score: number) => {
     if (currentTestNum >= 6) {
       // 마지막 문제 답 입력 시
-      setTestScore((prevTestScore) => prevTestScore + score); // 최종 점수 반영
+      const finalScore = testScore + score; // 최종 점수 계산 // 최종 점수 반영
       // 점수 계산해서 전역 상태로 투자 성향 값 추가
       setIsLoading(true); // 로딩 창 띄우기
       // 2초 뒤에 결과 계산 -> 전역 상태에 값 저장 시 바로 result 컴포넌트로 이동
       setTimeout(() => {
-        if (testScore >= 7 && testScore <= 11) {
+        if (finalScore >= 7 && finalScore <= 11) {
           setPuzzle4Score(1); // 7 ~ 11점 : 안정형 (1)
-        } else if (testScore >= 12 && testScore <= 18) {
+        } else if (finalScore >= 12 && finalScore <= 18) {
           setPuzzle4Score(2); // 12 ~ 18점 : 안정추구형 (2)
-        } else if (testScore >= 19 && testScore <= 24) {
+        } else if (finalScore >= 19 && finalScore <= 24) {
           setPuzzle4Score(3); // 19 ~ 24점 : 위험중립형 (3)
-        } else if (testScore >= 25 && testScore <= 31) {
+        } else if (finalScore >= 25 && finalScore <= 31) {
           setPuzzle4Score(4); // 25 ~ 31점 : 적극투자형 (4)
-        } else if (testScore >= 32 && testScore <= 36) {
+        } else if (finalScore >= 32 && finalScore <= 36) {
           setPuzzle4Score(5); // 32 ~ 36점 : 공격투자형 (5)
         }
       }, 2000);
