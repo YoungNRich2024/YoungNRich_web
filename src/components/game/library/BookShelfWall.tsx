@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import useImageSize from "../../common/useImageSize";
+
 import bg_bookshelfwall from "../../../assets/library/bookshelfwall/bg_bookshelfwall.png";
 import bookshelf from "../../../assets/library/bookshelfwall/bookshelf.png";
 import financial from "../../../assets/library/bookshelfwall/financial.png";
@@ -36,7 +38,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   setIsCabinetOpen,
   isDarkMode,
 }) => {
-  // 책장, 재무제표, 라디오 테이블, 수납장,
+  const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
 
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
@@ -89,38 +91,42 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   return (
     <>
       <Wrapper $isDarkMode={isDarkMode}>
-        {isCabinetOpen ? (
-          <Cabinet
-            src={cabinet_open}
-            alt="cabinet_open"
-            $isCabinetOpen={isCabinetOpen}
-            onClick={clickCabinetOpened}
-          />
-        ) : (
-          <Cabinet
-            src={cabinet_close}
-            alt="cabinet_closed"
-            $isCabinetOpen={isCabinetOpen}
-            onClick={clickCabinetClosed}
-          />
-        )}
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          {isCabinetOpen ? (
+            <Cabinet
+              src={cabinet_open}
+              alt="cabinet_open"
+              $isCabinetOpen={isCabinetOpen}
+              onClick={clickCabinetOpened}
+            />
+          ) : (
+            <Cabinet
+              src={cabinet_close}
+              alt="cabinet_closed"
+              $isCabinetOpen={isCabinetOpen}
+              onClick={clickCabinetClosed}
+            />
+          )}
 
-        <BookShelf src={bookshelf} alt="bookshelf" onClick={clickBookShelf} />
-        {showFinancial && (
-          <Financial src={financial} onClick={clickFinancial} />
-        )}
-        <RadioTable src={radiotable} alt="radio" onClick={clickRadioTable}/>
-        {/* 대화창 */}
-        {activeDialog && (
-          <Dialog
-            setActiveDialog={setActiveDialog}
-            dialogScript={dialogScript}
-          />
-        )}
+          <BookShelf src={bookshelf} alt="bookshelf" onClick={clickBookShelf} />
+          {showFinancial && (
+            <Financial src={financial} onClick={clickFinancial} />
+          )}
+          <RadioTable src={radiotable} alt="radio" onClick={clickRadioTable} />
+          {/* 대화창 */}
+          {activeDialog && (
+            <Dialog
+              setActiveDialog={setActiveDialog}
+              dialogScript={dialogScript}
+            />
+          )}
+        </ItemContainer>
       </Wrapper>
       {/* 책장 책 번호 */}
       <BookShelfNumber>
-        <img src={bookshelf_number} alt="bookshelf_number" />
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          <img src={bookshelf_number} alt="bookshelf_number" />
+        </ItemContainer>
       </BookShelfNumber>
       {/* 책장 확대 모달 */}
       {bookshelfModal && (
@@ -139,44 +145,50 @@ export default BookShelfWall;
 const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
-  position: relative;
 
   background: url(${bg_bookshelfwall}) center no-repeat;
   background-size: contain;
   overflow-y: hidden;
-  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   filter: ${(props) =>
     props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
+const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
+  aspect-ratio: 12 /7;
+  ${(props) => (props.$isRenderedByWidth ? `width: 100%;` : `height: 100%;`)}
+  position: relative;
+`;
+
 // 책장
 const BookShelf = styled.img`
   position: absolute;
-  width: 26%;
+  width: 31.5%;
   height: 88%;
-  /* margin-top: 3.3%; */
   bottom: 0;
   margin-bottom: 3%;
-
-  margin-left: 36.5%;
+  margin-left: 33.5%;
 `;
 
 // 재무제표
 const Financial = styled.img`
   position: absolute;
-  width: 8%;
+  width: 12.5%;
 
   margin-left: 65%;
-  margin-top: 16%;
+  margin-top: 18.5%;
 `;
 
 const Cabinet = styled.img<{ $isCabinetOpen: boolean }>`
   position: absolute;
-  width: 11%;
+  width: 12%;
   bottom: 0;
-  margin-bottom: 3%;
-  margin-left: 25%;
+  margin-bottom: 4%;
+  margin-left: 21%;
 
   // 수납장이 열려있지 않을 때 수납장 클릭 시 진동 애니메이션 효과 적용
   ${(props) =>
@@ -207,10 +219,10 @@ const Cabinet = styled.img<{ $isCabinetOpen: boolean }>`
 
 const RadioTable = styled.img`
   position: absolute;
-  width: 12%;
+  width: 13%;
   bottom: 0;
   margin-bottom: 3%;
-  margin-left: 62.5%;
+  margin-left: 65%;
 `;
 
 const BookShelfNumber = styled.div`
@@ -218,6 +230,10 @@ const BookShelfNumber = styled.div`
   width: 100%;
   height: 100%;
   pointer-events: none; // 보여주기용으로, 하위 요소의 event가 가능해야 함
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
     position: absolute;

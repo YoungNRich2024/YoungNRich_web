@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useImageSize from "../../common/useImageSize";
 import bg_windowwall from "../../../assets/library/windowwall/bg_windowwall.png";
 import window_open from "../../../assets/library/windowwall/window_open.png";
 import window_close from "../../../assets/library/windowwall/window_close.png";
@@ -22,6 +23,8 @@ const WindowWall: React.FC<WindowWallProps> = ({
   isDarkMode,
   setIsDarkMode,
 }) => {
+  const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
+
   const setModal = useSetRecoilState(modalState); // // 모달 내용 변경 함수
 
   // 전등 클릭 시 실행하는 함수
@@ -41,17 +44,21 @@ const WindowWall: React.FC<WindowWallProps> = ({
   return (
     <>
       <Wrapper $isDarkMode={isDarkMode}>
-        <Lamp onClick={clickLamp} />
-        <Window
-          src={isWindowClose ? window_close : window_open}
-          alt="window_open"
-          onClick={clickWindow}
-        />
-        <Bag src={bag} alt="bag" onClick={clickBag}/>
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          <Lamp onClick={clickLamp} />
+          <Window
+            src={isWindowClose ? window_close : window_open}
+            alt="window_open"
+            onClick={clickWindow}
+          />
+          <Bag src={bag} alt="bag" onClick={clickBag} />
+        </ItemContainer>
       </Wrapper>
 
       <WindowNumber $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
-        <img src={window_number} alt="window_number" />
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          <img src={window_number} alt="window_number" />
+        </ItemContainer>
       </WindowNumber>
     </>
   );
@@ -62,33 +69,39 @@ export default WindowWall;
 const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
-  position: relative;
 
   background: url(${bg_windowwall}) center no-repeat;
   background-size: contain;
   overflow-y: hidden;
-  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   filter: ${(props) =>
     props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
-const Lamp = styled.div`
-  /* background-color: pink;
-  opacity: 0.4; */
+const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
+  aspect-ratio: 12 /7;
+  ${(props) => (props.$isRenderedByWidth ? `width: 100%;` : `height: 100%;`)}
+  position: relative;
+`;
 
+const Lamp = styled.div`
   position: absolute;
   width: 7%;
   height: 25%;
-  margin-left: 27.9%;
-  margin-top: 14%;
+  margin-left: 25%;
+  margin-top: 16%;
 `;
 
 const Window = styled.img`
   position: absolute;
-  width: 30%;
-  margin-left: 35%;
-  margin-top: 4%;
+  width: 33%;
+
+  margin-left: 33.5%;
+  margin-top: 4.5%;
 `;
 
 const WindowNumber = styled.div<{
@@ -101,19 +114,23 @@ const WindowNumber = styled.div<{
   pointer-events: none; // 보여주기용으로, 하위 요소의 event가 가능해야 함
   // 창문이 닫혀 있고, 불을 껐을 때 (다크모드)일 때만 가능
   display: ${(props) =>
-    props.$isDarkMode && props.$isWindowClose ? "block" : "none"};
+    props.$isDarkMode && props.$isWindowClose ? "flex" : "none"};
+
+  justify-content: center;
+  align-items: center;
 
   img {
     width: 30%;
+    height: 72.5%;
     margin-left: 35%;
-    margin-top: 4%;
+    margin-top: 4.5%;
   }
 `;
 
 const Bag = styled.img`
   position: absolute;
-  width: 12%;
+  width: 15%;
   bottom: 0;
   margin-bottom: 3%;
-  margin-left: 31%;
+  margin-left: 26.5%;
 `;

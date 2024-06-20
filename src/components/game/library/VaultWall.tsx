@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import useImageSize from "../../common/useImageSize";
+
 import bg_vaultwall from "../../../assets/library/vaultwall/bg_vaultwall.png";
 
 import vault_0sol from "../../../assets/library/vaultwall/vault_0sol.png";
@@ -33,6 +36,8 @@ const VaultWall: React.FC<VaultWallProps> = ({
   setPuzzleSuccess,
   isDarkMode,
 }) => {
+  const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
+
   const puzzleState = useRecoilValue(libraryPuzzleState); // 서재 퍼즐 3개 완료 여부 상태
   const testResultNum = useRecoilValue(puzzle4State); // 퍼즐 4 투자 성향 테스트 결과
 
@@ -70,33 +75,38 @@ const VaultWall: React.FC<VaultWallProps> = ({
 
   return (
     <Wrapper $isDarkMode={isDarkMode}>
-      <Bull onClick={() => turnOnDialog("bull")} />
-      <Test onClick={clickTest} />
-      <Bear onClick={() => turnOnDialog("bear")} />
-      <Vault
-        src={
-          puzzleSuccess === 1
-            ? vault_1sol
-            : puzzleSuccess === 2
-            ? vault_2sol
-            : puzzleSuccess === 3
-            ? vault_3sol
-            : vault_0sol
-        }
-        alt="vault"
-        $isDarkMode={isDarkMode}
-      />
-      {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
-      {testResultNum && !puzzle4Done ? (
-        <Frames src={frames_eye} alt="frames_eye" />
-      ) : (
-        <Frames src={frames} alt="frames" />
-      )}
+      <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+        <Bull onClick={() => turnOnDialog("bull")} />
+        <Test onClick={clickTest} />
+        <Bear onClick={() => turnOnDialog("bear")} />
+        <Vault
+          src={
+            puzzleSuccess === 1
+              ? vault_1sol
+              : puzzleSuccess === 2
+              ? vault_2sol
+              : puzzleSuccess === 3
+              ? vault_3sol
+              : vault_0sol
+          }
+          alt="vault"
+          $isDarkMode={isDarkMode}
+        />
+        {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
+        {testResultNum && !puzzle4Done ? (
+          <Frames src={frames_eye} alt="frames_eye" />
+        ) : (
+          <Frames src={frames} alt="frames" />
+        )}
 
-      {/* 대화창 */}
-      {activeDialog && (
-        <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
-      )}
+        {/* 대화창 */}
+        {activeDialog && (
+          <Dialog
+            setActiveDialog={setActiveDialog}
+            dialogScript={dialogScript}
+          />
+        )}
+      </ItemContainer>
     </Wrapper>
   );
 };
@@ -106,55 +116,62 @@ export default VaultWall;
 const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
-  position: relative;
 
   background: url(${bg_vaultwall}) center no-repeat;
   background-size: contain;
   overflow-y: hidden;
-  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   filter: ${(props) =>
     props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
 `;
 
+const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
+  aspect-ratio: 12 /7;
+  ${(props) => (props.$isRenderedByWidth ? `width: 100%;` : `height: 100%;`)}
+  position: relative;
+`;
+
 const Bull = styled.div`
-  position: absolute;
   /* background-color: pink;
   opacity: 0.4; */
-  width: 15%;
-  height: 26%;
+  position: absolute;
+  width: 18%;
+  height: 27%;
 
-  margin-left: 20%;
-  margin-top: 5.5%;
+  margin-left: 15%;
+  margin-top: 6%;
 `;
 
 const Test = styled.div`
   /* background-color: pink;
   opacity: 0.5; */
   position: absolute;
-  width: 16%;
+  width: 19%;
   height: 20%;
-  margin-left: 19%;
-  margin-top: 22%;
+  margin-left: 14%;
+  margin-top: 25%;
 `;
 
 const Bear = styled.div`
-  position: absolute;
   /* background-color: pink;
   opacity: 0.4; */
-
-  width: 12%;
-  height: 26%;
-  margin-left: 68%;
+  position: absolute;
+  width: 15%;
+  height: 22%;
+  margin-left: 70%;
   margin-top: 5%;
 `;
 
 const Vault = styled.img<{ $isDarkMode: boolean }>`
   position: absolute;
-  width: 24.2%;
+  width: 28%;
   bottom: 0;
   margin-bottom: 2.4%;
-  margin-left: 39.5%;
+  margin-left: 38%;
 
   // 불 껐을 때 (다크모드) 밝기 올리기
   filter: ${(props) =>
@@ -163,9 +180,8 @@ const Vault = styled.img<{ $isDarkMode: boolean }>`
 
 const Frames = styled.img`
   position: absolute;
-  width: 24%;
+  width: 27%;
   right: 0;
-  margin-right: 12.3%;
-  /* margin-top: 16.5%; */
-  margin-top: 18%;
+  margin-right: 7%;
+  margin-top: 21%;
 `;

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
+
 import { useSetRecoilState } from "recoil";
 import { inventoryState } from "../../../recoil/atom";
+
+import useImageSize from "../../common/useImageSize";
 
 import bg_doorwall from "../../../assets/library/doorwall/bg_doorwall.png";
 import key from "../../../assets/library/doorwall/key.png";
@@ -16,7 +19,11 @@ interface DoorWallProps {
 }
 
 // 문벽
-const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey, isDarkMode }) => {
+const DoorWall: React.FC<DoorWallProps> = ({
+  showKey,
+  setShowKey,
+  isDarkMode,
+}) => {
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
 
@@ -38,14 +45,21 @@ const DoorWall: React.FC<DoorWallProps> = ({ showKey, setShowKey, isDarkMode }) 
     turnOnDialog("jacket"); // 자켓 관련 대화창 활성화
   };
 
+  const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
+
   return (
     <Wrapper $isDarkMode={isDarkMode}>
-      <Portrait onClick={() => turnOnDialog("portrait")} />
-      <Door onClick={() => turnOnDialog("door")} />
-      {showKey && <Jacket onClick={clickJacket} />}
-      {activeDialog && (
-        <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
-      )}
+      <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+        <Portrait onClick={() => turnOnDialog("portrait")} />
+        <Door onClick={() => turnOnDialog("door")} />
+        {showKey && <Jacket onClick={clickJacket} />}
+        {activeDialog && (
+          <Dialog
+            setActiveDialog={setActiveDialog}
+            dialogScript={dialogScript}
+          />
+        )}
+      </ItemContainer>
     </Wrapper>
   );
 };
@@ -55,26 +69,31 @@ export default DoorWall;
 const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
-  position: relative;
-
   background: url(${bg_doorwall}) center no-repeat;
   background-size: contain;
   overflow-y: hidden;
-  position: relative;
 
-  filter: ${(props) => (props.$isDarkMode ? 'brightness(0.5)' : 'brightness(1)')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  filter: ${(props) =>
+    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+`;
+
+const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
+  aspect-ratio: 12 /7;
+  ${(props) => (props.$isRenderedByWidth ? `width: 100%;` : `height: 100%;`)}
+  position: relative;
 `;
 
 // 초상화
 const Portrait = styled.div`
-  /* background-color: pink;
-  opacity: 0.5; */
-
   position: absolute;
-  width: 9%;
+  width: 10%;
   height: 23%;
-  margin-left: 23.5%;
-  margin-top: 11.5%;
+  margin-left: 20%;
+  margin-top: 13%;
 `;
 
 // 문
@@ -84,21 +103,18 @@ const Door = styled.div`
 
   position: absolute;
   width: 22.5%;
-  height: 83%;
+  height: 82%;
 
   margin-left: 40%;
-  margin-top: 5%;
+  margin-top: 6%;
 `;
 
 // 행거에 걸려 있는 자켓
 const Jacket = styled.div`
-  /* background-color: pink;
-  opacity: 0.5; */
-
   position: absolute;
-  width: 10%;
+  width: 12%;
   height: 45%;
 
-  margin-left: 67%;
-  margin-top: 15.5%;
+  margin-left: 67.5%;
+  margin-top: 18%;
 `;
