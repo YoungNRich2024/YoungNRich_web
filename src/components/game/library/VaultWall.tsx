@@ -23,6 +23,7 @@ import {
 import { vaultWallData, vaultWallKeys } from "../../../data/libraryData";
 
 import Dialog from "../../common/Dialog";
+import FramesLargeModal from "./FramesLargeModal";
 
 interface VaultWallProps {
   puzzleSuccess: number; // 서재 퍼즐 성공 개수
@@ -46,6 +47,8 @@ const VaultWall: React.FC<VaultWallProps> = ({
   ).done; // 퍼즐4 완료 여부만 따로 변수에 담기
 
   const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
+
+  const [framesLargeModal, setFramesLargeModal] = useState(false); // 전체 액자 모달 활성화 여부
 
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
@@ -73,41 +76,53 @@ const VaultWall: React.FC<VaultWallProps> = ({
     setModal({ isOpen: true, content: "investmentTest" });
   };
 
-  return (
-    <Wrapper $isDarkMode={isDarkMode}>
-      <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
-        <Bull onClick={() => turnOnDialog("bull")} />
-        <Test onClick={clickTest} />
-        <Bear onClick={() => turnOnDialog("bear")} />
-        <Vault
-          src={
-            puzzleSuccess === 1
-              ? vault_1sol
-              : puzzleSuccess === 2
-              ? vault_2sol
-              : puzzleSuccess === 3
-              ? vault_3sol
-              : vault_0sol
-          }
-          alt="vault"
-          $isDarkMode={isDarkMode}
-        />
-        {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
-        {testResultNum && !puzzle4Done ? (
-          <Frames src={frames_eye} alt="frames_eye" />
-        ) : (
-          <Frames src={frames} alt="frames" />
-        )}
+  const clickFramesEye = () => {
+    setFramesLargeModal(true); // 전체 액자 확대 모달 활성화
+  };
 
-        {/* 대화창 */}
-        {activeDialog && (
-          <Dialog
-            setActiveDialog={setActiveDialog}
-            dialogScript={dialogScript}
+  return (
+    <>
+      <Wrapper $isDarkMode={isDarkMode}>
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          <Bull onClick={() => turnOnDialog("bull")} />
+          <Test onClick={clickTest} />
+          <Bear onClick={() => turnOnDialog("bear")} />
+          <Vault
+            src={
+              puzzleSuccess === 1
+                ? vault_1sol
+                : puzzleSuccess === 2
+                ? vault_2sol
+                : puzzleSuccess === 3
+                ? vault_3sol
+                : vault_0sol
+            }
+            alt="vault"
+            $isDarkMode={isDarkMode}
           />
-        )}
-      </ItemContainer>
-    </Wrapper>
+          {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
+          {testResultNum && !puzzle4Done ? (
+            <Frames src={frames_eye} alt="frames_eye" onClick={clickFramesEye}/>
+          ) : (
+            <Frames src={frames} alt="frames" />
+          )}
+
+          {/* 대화창 */}
+          {activeDialog && (
+            <Dialog
+              setActiveDialog={setActiveDialog}
+              dialogScript={dialogScript}
+            />
+          )}
+        </ItemContainer>
+      </Wrapper>
+      {framesLargeModal && (
+        <FramesLargeModal
+          framesLargeModal={framesLargeModal}
+          setFramesLargeModal={setFramesLargeModal}
+        />
+      )}
+    </>
   );
 };
 
