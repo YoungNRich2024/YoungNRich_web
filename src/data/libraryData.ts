@@ -12,6 +12,18 @@ import test_result_3 from "../assets/library/vaultwall/test_result_3.png";
 import test_result_4 from "../assets/library/vaultwall/test_result_4.png";
 import test_result_5 from "../assets/library/vaultwall/test_result_5.png";
 
+import frame_1 from "../assets/library/vaultwall/frame_1.png";
+import frame_2 from "../assets/library/vaultwall/frame_2.png";
+import frame_3 from "../assets/library/vaultwall/frame_3.png";
+import frame_4 from "../assets/library/vaultwall/frame_4.png";
+import frame_5 from "../assets/library/vaultwall/frame_5.png";
+
+import portfolio_1 from "../assets/library/vaultwall/portfolio_1.png";
+import portfolio_2 from "../assets/library/vaultwall/portfolio_2.png";
+import portfolio_3 from "../assets/library/vaultwall/portfolio_3.png";
+import portfolio_4 from "../assets/library/vaultwall/portfolio_4.png";
+import portfolio_5 from "../assets/library/vaultwall/portfolio_5.png";
+
 // 서재에서 사용할 데이터
 
 // 책장벽에서 사용할 데이터
@@ -200,3 +212,89 @@ export const investmentTestResultData = [
     resultColor: "var(--black)",
   },
 ];
+
+// 액자 컴포넌트에서 필요한 투자자 데이터
+export const investorFrameData = [
+  {
+    investorId: 1,
+    investorName: "켄 피셔",
+    frameImage: frame_1,
+    portfolioImage: portfolio_1,
+    script: [
+      "<div>어서오시게…! 나는 알렉산더 금융대학원의 켄 피셔 교수라네.</div><div>우리 랩실 소개를 들어보겠는가?</div>",
+      "<div>우리 랩실은 <strong>예금이나 적금 수준의 수익률</strong>을 기대한다네.</div><strong>투자원금에 손실이 발생하는 것을 원하지 않지.</strong>",
+      "<div><strong>CMA, MMF</strong>와 같은 원금 손실의 우려가 없는 상품에 투자하는 것이 우리 랩실의 투자전략이라네.</div>",
+      "그래, 우리 랩실에 대해 들어보니까 자네의 투자 성향과 잘 맞는다고 생각하는가?",
+    ],
+  },
+  {
+    investorId: 2,
+    investorName: "글렌 그린버그",
+    frameImage: frame_2,
+    portfolioImage: portfolio_2,
+    script: [
+      "반갑구만. 나는 알렉산더 금융대학원의 글렌 그린버그 교수라네.<br>우리 랩실 소개를 들어보겠는가?",
+      "<div>우리 랩실은 <strong>투자원금의 손실위험은 최소화</strong>하고, <strong>이자소득이나 배당소득 수준의 안정적인 투자</strong>를 목표로 한다네.</div><div>다만 수익을 위해 <strong>단기적인 손실을 수용</strong>할 수 있으며,</div><div>예・적금보다 높은 수익을 위해 자산 중의 일부를 <strong>변동성 높은 상품</strong>에 투자할 의향이 있다네.</div>",
+      "<div><strong>채권형펀드</strong>를 적당한 투자전략으로 보네. 그중에서도 <strong>장기회사채펀드</strong> 등이 좋지.</div>",
+      "그래, 우리 랩실에 대해 들어보니까 자네의 투자 성향과 잘 맞는다고 생각하는가?",
+    ],
+  },
+  {
+    investorId: 3,
+    investorName: "레이 달리오",
+    frameImage: frame_3,
+    portfolioImage: portfolio_3,
+    script: [
+      "어어 왔는가. 나는 알렉산더 금융대학원의 레이 달리오 교수라네.<br>우리 랩실 소개를 들어보겠는가?",
+      "우리 랩실은 투자에는 그에 상응하는 투자위험이 있음을 충분히 인식한다네.<br><div>그래서 예・적금보다 높은 수익을 기대할 수 있다면 <strong>일정수준의 손실위험을 감수</strong>할 각오도 있지.</div>",
+      "<div><strong>적립식펀드</strong>나 <strong>주가연동상품</strong>처럼 중위험 펀드로 분류되는 상품을 투자전략으로 선택한다네.</div>",
+      "그래, 우리 랩실에 대해 들어보니까 자네의 투자 성향과 잘 맞는다고 생각하는가?",
+    ],
+  },
+  {
+    investorId: 4,
+    investorName: "캐시 우드",
+    frameImage: frame_4,
+    portfolioImage: portfolio_4,
+    script: [
+      "젊은 학자로구만. 나는 알렉산더 금융대학원의 캐시 우드 교수라네.<br>우리 랩실 소개를 들어보겠는가?",
+      "<div>우리 랩실은 <strong>투자원금의 보전보다는 위험을 감내하더라도 높은 수준의 투자수익을 추구</strong>한다네.</div><div><strong>투자자금의 상당 부분을 주식, 주식형펀드 또는 파생상품 등의 위험자산에 투자</strong>할 의향이 있지.</div>",
+      "<div><strong>국내외 주식형펀드</strong>와 <strong>원금비보장형 ELS(주가 연계증권)</strong> 등 고수익・고위험 상품에 주로 투자하네.</div>",
+      "그래, 우리 랩실에 대해 들어보니까 자네의 투자 성향과 잘 맞는다고 생각하는가?",
+    ],
+  },
+  {
+    investorId: 5,
+    investorName: "짐 사이먼스",
+    frameImage: frame_5,
+    portfolioImage: portfolio_5,
+    script: [
+      "왔으면 앉게! 나는 알렉산더 금융대학원의 짐 사이먼스 교수라네.<br>우리 랩실 소개를 들어보겠는가?",
+      "<div>우리 랩실은 <strong>시장평균수익률을 훨씬 넘어서는 높은 수준의 투자수익을 추구</strong>하며, 이를 위해 <strong>자산가치의 변동에 따른 손실위험을 적극 수용</strong>한다네. 그래서 <strong>투자자금 대부분을 주식, 주식형펀드 또는 파생상품 등의 위험자산에 투자</strong>하곤 하지.</div>",
+      "<div><strong>주식 비중이 70% 이상인 고위험 펀드</strong>에 주로 투자하고, 자산의 10% 정도는 <strong>직접투자(주식)</strong>도 한다네</div>",
+      "그래, 우리 랩실에 대해 들어보니까 자네의 투자 성향과 잘 맞는다고 생각하는가?",
+    ],
+  },
+];
+
+// 액자 컴포넌트에서 필요한 사용자 데이터
+export const userFrameData = [
+  [{ label: "네 랩실 소개를 해주세요!", action: null }],
+  [{ label: "교수님의 투자전략을 알고 싶어요!", action: null }],
+  [{ label: "next", action: null }],
+  [
+    { label: "예", action: true },
+    { label: "아니오", action: false },
+  ],
+];
+
+// resultId로 resultTitle 검색하는 함수
+export const getTestTypeName = (num: number) => {
+  let name = "";
+  investmentTestResultData.forEach((elem) => {
+    if (elem.resultId === num) {
+      name = elem.resultTitle;
+    }
+  });
+  return name;
+};

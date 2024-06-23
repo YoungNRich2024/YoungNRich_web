@@ -4,6 +4,7 @@ import bg_modal from "../../../assets/common/bg_modal.png";
 import ic_down from "../../../assets/common/ic_down.png";
 import original_frames from "../../../assets/library/vaultwall/original_frames.png";
 import useImageSize from "../../common/useImageSize";
+import FrameModal from "./FrameModal";
 
 interface FramesLargeModalProps {
   framesLargeModal: boolean; // 전체 액자 확대 모달 활성화 여부
@@ -33,6 +34,11 @@ const FramesLargeModal: React.FC<FramesLargeModalProps> = ({
     content: null,
   });
 
+  // 액자 모달 여는 함수
+  const clickFrame = (item: number) => {
+    setFrameModal({ isOpen: true, content: item });
+  };
+
   if (!framesLargeModal) {
     return null; // 책장 확대 modal 상태가 false일 경우 null 리턴
   } else {
@@ -41,11 +47,11 @@ const FramesLargeModal: React.FC<FramesLargeModalProps> = ({
       <Wrapper>
         <BackgroundImage>
           <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
-            <FirstFrame />
-            <ThirdFrame />
-            <FifthFrame />
-            <SecondFrame />
-            <FourthFrame />
+            <FirstFrame onClick={() => clickFrame(1)} />
+            <ThirdFrame onClick={() => clickFrame(3)} />
+            <FifthFrame onClick={() => clickFrame(5)} />
+            <SecondFrame onClick={() => clickFrame(2)} />
+            <FourthFrame onClick={() => clickFrame(4)} />
           </ItemContainer>
         </BackgroundImage>
         <CloseArrow
@@ -54,6 +60,9 @@ const FramesLargeModal: React.FC<FramesLargeModalProps> = ({
           alt="close"
           onClick={closeModal}
         />
+        {frameModal.isOpen && (
+          <FrameModal frameModal={frameModal} setFrameModal={setFrameModal} />
+        )}
       </Wrapper>
     );
   }
@@ -96,8 +105,8 @@ const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
 `;
 
 const Frame = styled.div`
-  background-color: pink;
-  opacity: 0.4;
+  /* background-color: pink;
+  opacity: 0.4; */
   position: absolute;
 
   width: 15%;
