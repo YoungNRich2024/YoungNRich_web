@@ -3,7 +3,7 @@ import styled from "styled-components";
 // import { motion } from "framer-motion";
 
 import sticky_note_title from "../../../assets/library/vaultwall/sticky_note_title.png";
-import loading from "../../../assets/library/vaultwall/loading.gif";
+import loading from "../../../assets/common/loading.gif";
 
 import { investmentTestData } from "../../../data/libraryData";
 
