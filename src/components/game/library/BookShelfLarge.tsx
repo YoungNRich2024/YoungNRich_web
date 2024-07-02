@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import bg_modal from "../../../assets/common/bg_modal.png";
 import bookshelf_large from "../../../assets/library/bookshelfwall/bookshelf_large.png";
+import bookshelf_large_lightdark from "../../../assets/library/bookshelfwall/bookshelf_large_lightdark.png";
 import bookshelf_large_dark from "../../../assets/library/bookshelfwall/bookshelf_large_dark.png";
 import ic_down_black from "../../../assets/common/ic_down_black.png";
 import BookModal from "./BookModal";
@@ -9,7 +10,8 @@ import BookModal from "./BookModal";
 interface BookShelfLargeProps {
   bookshelfModal: boolean; // 책장 확대 모달 활성화 여부
   setBookshelfModal: React.Dispatch<React.SetStateAction<boolean>>; // 책장 확대 모달 활성화 여부 설정 함수
-  isDarkMode: boolean;
+  isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
+  isWindowClose: boolean; // 창문 닫았는지 여부 (다크모드)
 }
 
 // 책 모달 관련 타입 정의
@@ -23,6 +25,7 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
   bookshelfModal,
   setBookshelfModal,
   isDarkMode,
+  isWindowClose,
 }) => {
   // 책장 모달 닫는 함수
   const closeModal = () => {
@@ -46,7 +49,7 @@ const BookShelfLarge: React.FC<BookShelfLargeProps> = ({
     // 책장 확대 modal 상태가 true일 경우 모달 보여주기
     return (
       <Wrapper>
-        <BookShelf $isDarkMode={isDarkMode}>
+        <BookShelf $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
           <Blue onClick={() => clickBook("blue")} />
           <Green onClick={() => clickBook("green")} />
           <Secret onClick={() => clickBook("secret")} />
@@ -87,12 +90,16 @@ const Wrapper = styled.div`
   z-index: 10; // 책장벽 위에 띄우는 것이므로 z index 추가
 `;
 
-const BookShelf = styled.div<{ $isDarkMode: boolean }>`
+const BookShelf = styled.div<{ $isDarkMode: boolean; $isWindowClose: boolean }>`
   width: 80%;
   height: 100%;
   background: ${(props) =>
     `url(${
-      props.$isDarkMode ? bookshelf_large_dark : bookshelf_large
+      props.$isDarkMode && props.$isWindowClose
+        ? bookshelf_large_dark
+        : props.$isDarkMode || props.$isWindowClose
+        ? bookshelf_large_lightdark
+        : bookshelf_large
     }) center no-repeat`};
   background-size: contain;
 

@@ -43,7 +43,7 @@ const WindowWall: React.FC<WindowWallProps> = ({
 
   return (
     <>
-      <Wrapper $isDarkMode={isDarkMode}>
+      <Wrapper $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
         <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
           <Lamp onClick={clickLamp} />
           <Window
@@ -66,7 +66,7 @@ const WindowWall: React.FC<WindowWallProps> = ({
 
 export default WindowWall;
 
-const Wrapper = styled.div<{ $isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean; $isWindowClose: boolean }>`
   width: 100%;
   height: 100%;
 
@@ -79,7 +79,11 @@ const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   align-items: center;
 
   filter: ${(props) =>
-    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode && props.$isWindowClose
+      ? "brightness(0.3)"
+      : props.$isDarkMode || props.$isWindowClose
+      ? "brightness(0.5)"
+      : "brightness(1)"};
 `;
 
 const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`

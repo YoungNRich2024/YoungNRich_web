@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useSetRecoilState } from "recoil";
@@ -16,6 +16,7 @@ interface DoorWallProps {
   showKey: boolean; // 열쇠 획득 여부
   setShowKey: React.Dispatch<React.SetStateAction<boolean>>; // 열쇠 획득 여부 설정 함수
   isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
+  isWindowClose: boolean; // 창문 닫았는지 여부 (다크모드)
 }
 
 // 문벽
@@ -23,6 +24,7 @@ const DoorWall: React.FC<DoorWallProps> = ({
   showKey,
   setShowKey,
   isDarkMode,
+  isWindowClose,
 }) => {
   const [activeDialog, setActiveDialog] = useState(false); // dialog 활성화 여부
   const [dialogScript, setDialogScript] = useState<string | null>(null); // 클릭한 아이템에 대한 대사
@@ -48,7 +50,7 @@ const DoorWall: React.FC<DoorWallProps> = ({
   const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
 
   return (
-    <Wrapper $isDarkMode={isDarkMode}>
+    <Wrapper $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
       <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
         <Portrait onClick={() => turnOnDialog("portrait")} />
         <Door onClick={() => turnOnDialog("door")} />
@@ -66,7 +68,7 @@ const DoorWall: React.FC<DoorWallProps> = ({
 
 export default DoorWall;
 
-const Wrapper = styled.div<{ $isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean; $isWindowClose: boolean }>`
   width: 100%;
   height: 100%;
   background: url(${bg_doorwall}) center no-repeat;
@@ -78,7 +80,11 @@ const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   align-items: center;
 
   filter: ${(props) =>
-    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode && props.$isWindowClose
+      ? "brightness(0.3)"
+      : props.$isDarkMode || props.$isWindowClose
+      ? "brightness(0.5)"
+      : "brightness(1)"};
 `;
 
 const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`

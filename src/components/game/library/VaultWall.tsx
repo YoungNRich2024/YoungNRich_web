@@ -29,6 +29,7 @@ interface VaultWallProps {
   puzzleSuccess: number; // 서재 퍼즐 성공 개수
   setPuzzleSuccess: React.Dispatch<React.SetStateAction<number>>; // 서재 퍼즐 성공 개수 설정 함수
   isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
+  isWindowClose: boolean; // 창문 닫았는지 여부 (다크모드)
 }
 
 // 금고벽
@@ -36,6 +37,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
   puzzleSuccess,
   setPuzzleSuccess,
   isDarkMode,
+  isWindowClose,
 }) => {
   const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
 
@@ -82,7 +84,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
 
   return (
     <>
-      <Wrapper $isDarkMode={isDarkMode}>
+      <Wrapper $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
         <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
           <Bull onClick={() => turnOnDialog("bull")} />
           <Test onClick={clickTest} />
@@ -102,7 +104,11 @@ const VaultWall: React.FC<VaultWallProps> = ({
           />
           {/* 테스트했고 퍼즐4(투자자 선택) 완료 안했으면 눈 뜬 액자 표시 */}
           {testResultNum && !puzzle4Done ? (
-            <Frames src={frames_eye} alt="frames_eye" onClick={clickFramesEye}/>
+            <Frames
+              src={frames_eye}
+              alt="frames_eye"
+              onClick={clickFramesEye}
+            />
           ) : (
             <Frames src={frames} alt="frames" />
           )}
@@ -128,7 +134,7 @@ const VaultWall: React.FC<VaultWallProps> = ({
 
 export default VaultWall;
 
-const Wrapper = styled.div<{ $isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean; $isWindowClose: boolean }>`
   width: 100%;
   height: 100%;
 
@@ -141,7 +147,11 @@ const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   align-items: center;
 
   filter: ${(props) =>
-    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode && props.$isWindowClose
+      ? "brightness(0.3)"
+      : props.$isDarkMode || props.$isWindowClose
+      ? "brightness(0.5)"
+      : "brightness(1)"};
 `;
 
 const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`

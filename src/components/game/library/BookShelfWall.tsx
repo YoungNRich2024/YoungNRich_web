@@ -28,6 +28,7 @@ interface BookShelfWallProps {
   isCabinetOpen: boolean; // 수납장 open 여부
   setIsCabinetOpen: React.Dispatch<React.SetStateAction<boolean>>; // 수납장 open 여부 설정 함수
   isDarkMode: boolean; // 불 껐는지 여부 (다크모드)
+  isWindowClose: boolean; // 창문 닫았는지 여부 (다크모드)
 }
 
 // 책장벽
@@ -37,6 +38,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
   isCabinetOpen,
   setIsCabinetOpen,
   isDarkMode,
+  isWindowClose,
 }) => {
   const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
 
@@ -90,7 +92,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
 
   return (
     <>
-      <Wrapper $isDarkMode={isDarkMode}>
+      <Wrapper $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
         <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
           {isCabinetOpen ? (
             <Cabinet
@@ -123,7 +125,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
         </ItemContainer>
       </Wrapper>
       {/* 책장 책 번호 */}
-      <BookShelfNumber>
+      <BookShelfNumber $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
         <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
           <img src={bookshelf_number} alt="bookshelf_number" />
         </ItemContainer>
@@ -134,6 +136,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
           bookshelfModal={bookshelfModal}
           setBookshelfModal={setBookshelfModal}
           isDarkMode={isDarkMode}
+          isWindowClose={isWindowClose}
         />
       )}
     </>
@@ -142,7 +145,7 @@ const BookShelfWall: React.FC<BookShelfWallProps> = ({
 
 export default BookShelfWall;
 
-const Wrapper = styled.div<{ $isDarkMode: boolean }>`
+const Wrapper = styled.div<{ $isDarkMode: boolean; $isWindowClose: boolean }>`
   width: 100%;
   height: 100%;
 
@@ -155,7 +158,11 @@ const Wrapper = styled.div<{ $isDarkMode: boolean }>`
   align-items: center;
 
   filter: ${(props) =>
-    props.$isDarkMode ? "brightness(0.5)" : "brightness(1)"};
+    props.$isDarkMode && props.$isWindowClose
+      ? "brightness(0.3)"
+      : props.$isDarkMode || props.$isWindowClose
+      ? "brightness(0.5)"
+      : "brightness(1)"};
 `;
 
 const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
@@ -225,13 +232,18 @@ const RadioTable = styled.img`
   margin-left: 65%;
 `;
 
-const BookShelfNumber = styled.div`
+const BookShelfNumber = styled.div<{
+  $isDarkMode: boolean;
+  $isWindowClose: boolean;
+}>`
   position: absolute;
   width: 100%;
   height: 100%;
   pointer-events: none; // 보여주기용으로, 하위 요소의 event가 가능해야 함
 
-  display: flex;
+  // 창문이 닫혀 있고, 불을 껐을 때 (다크모드)일 때만 가능
+  display: ${(props) =>
+    props.$isDarkMode && props.$isWindowClose ? "flex" : "none"};
   justify-content: center;
   align-items: center;
 
