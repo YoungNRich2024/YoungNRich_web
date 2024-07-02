@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import useImageSize from "../../common/useImageSize";
 import bg_windowwall from "../../../assets/library/windowwall/bg_windowwall.png";
+import lamp_on from "../../../assets/library/windowwall/lamp_on.png";
+import lamp_off from "../../../assets/library/windowwall/lamp_off.png";
 import window_open from "../../../assets/library/windowwall/window_open.png";
 import window_close from "../../../assets/library/windowwall/window_close.png";
 import window_number from "../../../assets/library/windowwall/window_number.png";
@@ -45,7 +47,7 @@ const WindowWall: React.FC<WindowWallProps> = ({
     <>
       <Wrapper $isDarkMode={isDarkMode} $isWindowClose={isWindowClose}>
         <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
-          <Lamp onClick={clickLamp} />
+          <Lamp src={isDarkMode ? lamp_off: lamp_on} onClick={clickLamp} />
           <Window
             src={isWindowClose ? window_close : window_open}
             alt="window_open"
@@ -92,12 +94,12 @@ const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
   position: relative;
 `;
 
-const Lamp = styled.div`
+const Lamp = styled.img`
   position: absolute;
-  width: 7%;
-  height: 25%;
-  margin-left: 25%;
-  margin-top: 16%;
+  width: 8%;
+  height: 54%;
+  margin-left: 24.7%;
+  margin-top: 16.5%;
 `;
 
 const Window = styled.img`
