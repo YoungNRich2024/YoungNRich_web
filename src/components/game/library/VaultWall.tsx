@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import useImageSize from "../../common/useImageSize";
 
-import bg_vaultwall from "../../../assets/library/vaultwall/bg_vaultwall.png";
+import bg_vaultwall from "../../../assets/library/vaultwall/bg_vaultwall.webp";
 
 import vault_0sol from "../../../assets/library/vaultwall/vault_0sol.png";
 import vault_1sol from "../../../assets/library/vaultwall/vault_1sol.png";

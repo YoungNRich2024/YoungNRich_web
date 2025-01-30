@@ -6,7 +6,7 @@ import { inventoryState } from "../../../recoil/atom";
 
 import useImageSize from "../../common/useImageSize";
 
-import bg_doorwall from "../../../assets/library/doorwall/bg_doorwall.png";
+import bg_doorwall from "../../../assets/library/doorwall/bg_doorwall.webp";
 import key from "../../../assets/library/doorwall/key.png";
 
 import { doorWallData, doorWallKeys } from "../../../data/libraryData";

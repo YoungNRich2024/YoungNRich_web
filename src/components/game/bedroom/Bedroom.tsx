@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import bg_bedroom from "../../../assets/bedroom/bg_bedroom.png";
+import bg_bedroom from "../../../assets/bedroom/bg_bedroom.webp";
 import pad from "../../../assets/bedroom/pad.png";
 import remocon from "../../../assets/bedroom/remocon.png";
 import tv_on from "../../../assets/bedroom/tv_on.png";

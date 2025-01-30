@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import useImageSize from "../../common/useImageSize";
 
-import bg_bookshelfwall from "../../../assets/library/bookshelfwall/bg_bookshelfwall.png";
+import bg_bookshelfwall from "../../../assets/library/bookshelfwall/bg_bookshelfwall.webp";
 import bookshelf from "../../../assets/library/bookshelfwall/bookshelf.png";
 import financial from "../../../assets/library/bookshelfwall/financial.png";
 import cabinet_close from "../../../assets/library/bookshelfwall/cabinet_close.png";
