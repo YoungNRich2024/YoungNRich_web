@@ -9,7 +9,7 @@ import bg_bedroom from "../../../assets/bedroom/bg_bedroom.webp";
 import pad from "../../../assets/bedroom/pad.png";
 import remocon from "../../../assets/bedroom/remocon.png";
 import tv_on from "../../../assets/bedroom/tv_on.png";
-// import tv_off from "../../assets/bedroom/tv_off.png";
+import tv_off from "../../../assets/bedroom/tv_off.png";
 
 import Dialog from "../../common/Dialog";
 import { bedroomData, bedroomKeys } from "../../../data/bedroomData";
@@ -21,6 +21,7 @@ const Bedroom = () => {
 
   const [showIpad, setShowIpad] = useState(true); // 아이패드 활성화 여부
   const [showPillow, setShowPillow] = useState(true); // 베개 클릭 활성화 여부
+  const [isTvOn, setIsTvOn] = useState(false); // TV 켜짐 여부
 
   const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
   const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
@@ -53,15 +54,20 @@ const Bedroom = () => {
     turnOnDialog("pillow"); // 리모콘 관련 대화창 활성화
   };
 
-  // TV 클릭 시
-  const clickTv = () => {
+  // 꺼진 TV 클릭 시
+  const clickOffTv = () => {
     const remoconItem = inventory.find((item) => item.name === "remocon"); // 인벤토리에서 리모컨 찾기
     if (remoconItem?.checked) {
-      // 리모컨이 켜져있으면
-      setModal({ isOpen: true, content: "tv" });
+      // 리모컨 누른 상황일 때 TV 켜기
+      setIsTvOn(true);
     } else {
       turnOnDialog("tv");
     }
+  };
+
+  // 켜진 TV 클릭 시
+  const clickOnTv = () => {
+    setModal({ isOpen: true, content: "tv" });
   };
 
   return (
@@ -71,7 +77,12 @@ const Bedroom = () => {
           <Photo onClick={() => turnOnDialog("photo")} />
           {showPillow && <Pillow onClick={clickPillow} />}
           {showIpad && <Pad src={pad} alt="pad" onClick={clickIpad} />}
-          <TV src={tv_on} alt="tv" onClick={clickTv} />
+          {isTvOn ? (
+            <TV src={tv_on} alt="tv_on" onClick={clickOnTv} />
+          ) : (
+            <TV src={tv_off} alt="tv_off" onClick={clickOffTv} />
+          )}
+
           {activeDialog && (
             <Dialog
               setActiveDialog={setActiveDialog}
