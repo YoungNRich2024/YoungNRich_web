@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
+import useImageSize from "../../common/useImageSize";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { inventoryState, modalState } from "../../../recoil/atom";
+
 import bg_bedroom from "../../../assets/bedroom/bg_bedroom.webp";
 import pad from "../../../assets/bedroom/pad.png";
 import remocon from "../../../assets/bedroom/remocon.png";
 import tv_on from "../../../assets/bedroom/tv_on.png";
 // import tv_off from "../../assets/bedroom/tv_off.png";
+
 import Dialog from "../../common/Dialog";
 import { bedroomData, bedroomKeys } from "../../../data/bedroomData";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { inventoryState, modalState } from "../../../recoil/atom";
 
 // 침실 - 퍼즐 1
 const Bedroom = () => {
@@ -20,6 +24,8 @@ const Bedroom = () => {
 
   const [inventory, setInventory] = useRecoilState(inventoryState); // 인벤토리 설정 함수
   const setModal = useSetRecoilState(modalState); // 모달 내용 변경 함수
+
+  const isRenderedByWidth = useImageSize(); // 배경이미지 부모 div 너비에 맞춰지는지 여부
 
   // 대화창 띄우기
   const turnOnDialog = (item: bedroomKeys) => {
@@ -60,13 +66,20 @@ const Bedroom = () => {
 
   return (
     <Wrapper>
-      <Photo onClick={() => turnOnDialog("photo")} />
-      {showPillow && <Pillow onClick={clickPillow} />}
-      {showIpad && <Pad src={pad} alt="pad" onClick={clickIpad} />}
-      <TV src={tv_on} alt="tv" onClick={clickTv} />
-      {activeDialog && (
-        <Dialog setActiveDialog={setActiveDialog} dialogScript={dialogScript} />
-      )}
+      <Background>
+        <ItemContainer $isRenderedByWidth={isRenderedByWidth}>
+          <Photo onClick={() => turnOnDialog("photo")} />
+          {showPillow && <Pillow onClick={clickPillow} />}
+          {showIpad && <Pad src={pad} alt="pad" onClick={clickIpad} />}
+          <TV src={tv_on} alt="tv" onClick={clickTv} />
+          {activeDialog && (
+            <Dialog
+              setActiveDialog={setActiveDialog}
+              dialogScript={dialogScript}
+            />
+          )}
+        </ItemContainer>
+      </Background>
     </Wrapper>
   );
 };
@@ -74,9 +87,10 @@ const Bedroom = () => {
 export default Bedroom;
 
 const Wrapper = styled.div`
-  background: url(${bg_bedroom}) center no-repeat;
-  background-size: contain;
-  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: relative;
 
   @media screen and (orientation: portrait) {
@@ -89,53 +103,50 @@ const Wrapper = styled.div`
   }
 `;
 
+const Background = styled.div`
+  width: 100%;
+  height: 100%;
+
+  background: url(${bg_bedroom}) center no-repeat;
+  background-size: contain;
+  overflow-y: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ItemContainer = styled.div<{ $isRenderedByWidth: boolean }>`
+  aspect-ratio: 12 /7;
+  ${(props) => (props.$isRenderedByWidth ? `width: 100%;` : `height: 100%;`)}
+  position: relative;
+`;
+
 const Pad = styled.img`
   position: absolute;
 
-  @media screen and (orientation: portrait) {
-    width: 12vh;
-    margin-left: 20vh;
-    margin-top: 78vw;
-  }
-  @media screen and (orientation: landscape) {
-    width: 12vw;
-    margin-left: 20vw;
-    margin-top: 78vh;
-  }
+  width: 15%;
+  margin-top: 45%;
+  margin-left: 19%;
 `;
 
 const TV = styled.img`
   position: absolute;
-  @media screen and (orientation: portrait) {
-    width: 23vh;
-    margin-left: 53vh;
-    margin-top: 42vw;
-  }
-  @media screen and (orientation: landscape) {
-    width: 23vw;
-    margin-left: 53vw;
-    margin-top: 42vh;
-  }
+
+  width: 29.5%;
+  margin-top: 24.5%;
+  margin-left: 60%;
 `;
 
 const Pillow = styled.div`
   position: absolute;
   /* background-color: pink;
   opacity: 0.4; */
-  @media screen and (orientation: portrait) {
-    width: 14vh;
-    height: 7vw;
 
-    margin-left: 49vh;
-    margin-top: 36vw;
-  }
-  @media screen and (orientation: landscape) {
-    width: 14vw;
-    height: 7vh;
-
-    margin-left: 49vw;
-    margin-top: 36vh;
-  }
+  width: 14%;
+  height: 10%;
+  margin-top: 20%;
+  margin-left: 55%;
 `;
 
 const Photo = styled.div`
@@ -143,17 +154,8 @@ const Photo = styled.div`
   /* background-color: pink;
   opacity: 0.4; */
 
-  @media screen and (orientation: portrait) {
-    width: 10vh;
-    height: 14vw;
-    margin-left: 66vh;
-    margin-top: 6vw;
-  }
-
-  @media screen and (orientation: landscape) {
-    width: 10vw;
-    height: 14vh;
-    margin-left: 66vw;
-    margin-top: 6vh;
-  }
+  width: 12%;
+  height: 16%;
+  margin-top: 3%;
+  margin-left: 77%;
 `;
